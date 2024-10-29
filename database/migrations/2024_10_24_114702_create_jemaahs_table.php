@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tempat_lahir', 100);
             $table->char('no_hp', 20);
             $table->string('email', 100);
-            $table->char('nik', 20);
+            $table->char('nik', 20)->unique();
             $table->string('foto_ktp', 50);
             
             $table->string('nama_passport', 100)->nullable();
