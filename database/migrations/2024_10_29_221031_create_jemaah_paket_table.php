@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paket_jemaah', function (Blueprint $table) {
+        Schema::create('jemaah_paket', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('jemaah_id')->constrained('jemaah');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paket_jemaah');
+        Schema::dropIfExists('jemaah_paket');
     }
 };

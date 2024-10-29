@@ -36,4 +36,9 @@ class Jemaah extends Model
         'tanggal_lahir' => 'date',
         'berlaku_passport' => 'date',
     ];
+
+    public function jemaahPaket()
+    {
+        return $this->hasMany(JemaahPaket::class, 'jemaah_id', 'id');
+    }
 }
