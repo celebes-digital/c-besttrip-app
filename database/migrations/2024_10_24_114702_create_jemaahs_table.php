@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('kecamatan', 50);
             $table->string('kabupaten', 50);
             $table->string('provinsi', 50);
+            $table->char('rt', 3);
+            $table->char('rw', 3);
 
             $table->tinyInteger('status_nikah');
 
