@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('nominal');
             $table->datetime('waktu_setor');
             $table->string('bukti_setor', 50);
+            $table->boolean('status_setoran')->default(false);
 
             $table->softDeletes();
             $table->timestamps();

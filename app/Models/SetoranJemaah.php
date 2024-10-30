@@ -16,14 +16,16 @@ class SetoranJemaah extends Model
         'nominal',
         'waktu_setor',
         'bukti_setor',
+        'status_setoran'
     ];
 
     protected $casts = [
         'tgl_setor' => 'datetime',
+        'status_setoran' => 'boolean'
     ];
 
-    public function paketJemaah()
+    public function jemaahPaket()
     {
-        return $this->belongsTo(PaketJemaah::class);
+        return $this->belongsTo(JemaahPaket::class);
     }
 }
