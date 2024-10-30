@@ -13,7 +13,8 @@ class ViewJemaah extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\Action::make('kembali')
+                ->url(JemaahResource::getUrl())
         ];
     }
 }

@@ -13,10 +13,13 @@ class EditJemaah extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
+            Actions\Action::make('kembali')
+                ->label('Kembali')
+                ->color('gray')
+                ->url(JemaahResource::getUrl())
         ];
     }
 }

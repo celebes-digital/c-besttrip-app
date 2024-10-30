@@ -20,10 +20,10 @@ class Jemaah extends Model
         'email',
         'nik',
         'foto_ktp',
-        'nama_passport',
-        'no_passport',
-        'foto_passport',
-        'berlaku_passport',
+        'nama_paspor',
+        'no_paspor',
+        'foto_paspor',
+        'berlaku_paspor',
         'alamat',
         'kelurahan',
         'kecamatan',
@@ -34,7 +34,7 @@ class Jemaah extends Model
 
     protected $casts = [
         'tanggal_lahir' => 'date',
-        'berlaku_passport' => 'date',
+        'berlaku_paspor' => 'date',
     ];
 
     public function jemaahPaket()
