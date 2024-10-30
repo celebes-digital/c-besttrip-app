@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\PaketResource\Pages;
 
-use App\Filament\Resources\PaketResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
+
+use App\Filament\Resources\PaketResource;
 
 class ViewPaket extends ViewRecord
 {
@@ -13,7 +14,9 @@ class ViewPaket extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\Action::make('kembali')
+                ->url(PaketResource::getUrl())
+                ->color('gray')
         ];
     }
 }

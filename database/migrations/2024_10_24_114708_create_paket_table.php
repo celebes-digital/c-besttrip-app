@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->string('nama_paket', 50);
-            $table->string('deskripsi', 255);
+            $table->string('deskripsi', 255)->nullable();
             $table->unsignedInteger('harga');
 
-            $table->string('foto', 50);
             $table->date('tgl_paket');
+            $table->string('foto', 50)->nullable();
+            $table->boolean('is_active')->default(true);
 
             $table->softDeletes();
             $table->timestamps();
