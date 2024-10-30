@@ -18,6 +18,7 @@ class PaketResource extends Resource
 {
     protected static ?string $model             = Paket::class;
     protected static ?string $navigationIcon    = 'heroicon-o-squares-plus';
+    protected static ?string $slug              = 'paket';
 
     public static function form(Form $form): Form
     {
@@ -99,9 +100,9 @@ class PaketResource extends Resource
                     ->trueLabel('Aktif')
                     ->falseLabel('Tidak Aktif')
                     ->queries(
-                        true    : fn (Builder $query) => $query->where('is_active', true),
-                        false   : fn (Builder $query) => $query->where('is_active', false),
-                        blank   : fn (Builder $query) => $query,
+                        true    : fn(Builder $query) => $query->where('is_active', true),
+                        false   : fn(Builder $query) => $query->where('is_active', false),
+                        blank   : fn(Builder $query) => $query,
                     ),
             ])
             ->actions([
@@ -110,6 +111,7 @@ class PaketResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->color('warning'),
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ReplicateAction::make(),
                     Tables\Actions\RestoreAction::make()
                         ->color('success'),
                     Tables\Actions\DeleteAction::make(),
@@ -128,9 +130,7 @@ class PaketResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
