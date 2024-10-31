@@ -29,6 +29,8 @@ class Jemaah extends Model
         'kecamatan',
         'kabupaten',
         'provinsi',
+        'rt',
+        'rw',
         'status_nikah',
     ];
 

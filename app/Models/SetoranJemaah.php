@@ -12,7 +12,7 @@ class SetoranJemaah extends Model
     protected $table = 'setoran_jemaah';
 
     protected $fillable = [
-        'paket_jemaah_id',
+        'jemaah_paket_id',
         'nominal',
         'waktu_setor',
         'bukti_setor',

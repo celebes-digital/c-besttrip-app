@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignId('jemaah_id')->constrained('jemaah');
             $table->foreignId('paket_id')->constrained('paket');
-            $table->boolean('status_pembayaran');
+            $table->boolean('status_pembayaran')->default(0);
 
             $table->softDeletes();
             $table->timestamps();
