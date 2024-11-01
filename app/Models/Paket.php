@@ -22,4 +22,9 @@ class Paket extends Model
     protected $casts = [
         'tgl_paket' => 'date',
     ];
+
+    public function jemaahPaket()
+    {
+        return $this->hasMany(JemaahPaket::class);
+    }
 }

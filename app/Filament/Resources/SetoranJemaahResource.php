@@ -31,58 +31,67 @@ class SetoranJemaahResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('bukti_setor')
-                    ->label('Bukti Setor')
-                    ->columnSpanFull()
-                    ->image()
-                    ->required(),
-                Forms\Components\Select::make('id_jemaah')
-                    ->label('Nama Jemaah')
-                    ->options(
-                        Jemaah::all()->pluck('nama_ktp', 'id')
-                    )
-                    ->live(onBlur: true)
-                    ->searchable()
-                    ->native(false)
-                    ->required(),
-                Forms\Components\Select::make('id_paket')
-                    ->label('Nama Paket')
-                    ->options(
-                        fn (Get $get) 
-                        => JemaahPaket::where('jemaah_id', $get('id_jemaah'))
-                            ->get()
-                            ->pluck('nama_paket', 'id')
-                            ->toArray()
-                    )
-                    ->live(onBlur: true)
-                    ->helperText('Pilih terlibih dahulu nama jemaah')
-                    ->disabled(fn (Get $get) => $get('id_jemaah') === null)
-                    ->required(),
-                Forms\Components\TextInput::make('nominal')
-                    ->prefix('IDR')
-                    ->mask(
-                        RawJs::make(
-                            <<<'JS'
-                                $money($input, ',', '.', 0);
-                            JS
-                        )
-                    )
-                    ->stripCharacters(['.'])
-                    ->required()
-                    ->numeric(),
-                Forms\Components\DateTimePicker::make('waktu_setor')
-                    ->displayFormat('d F Y H:m')
-                    ->native(false)
-                    ->required(),
-            ]);
+                // Forms\Components\Split::make([
+                    Forms\Components\FileUpload::make('bukti_setor')
+                        ->label('Bukti Setor')
+                        ->image()
+                        ->directory('poto/setoran')
+                        ->panelAspectRatio('6:5')
+                        ->required(),
+                    Forms\Components\Group::make([
+                        Forms\Components\Select::make('jemaah_id')
+                            ->native(false)
+                            ->label('Nama Jemaah')
+                            ->default('jemaahPaket.jemaah_id')
+                            ->relationship('jemaahPaket.jemaah', 'nama_ktp')
+                            ->live()
+                            ->searchable()
+                            ->preload()
+                            ->required(),
+                        Forms\Components\Select::make('paket_id')
+                            ->label('Nama Paket')
+                            ->required()
+                            ->default('jemaahPaket.paket_id')
+                            ->disabled(fn (Get $get) => !$get('jemaah_id'))
+                            ->native(false)
+                            ->options(
+                                fn (Get $get) 
+                                => JemaahPaket::query()
+                                    ->where('jemaah_id', $get('jemaah_id'))
+                                    ->join('paket', 'paket.id', 'paket_id')
+                                    ->pluck('nama_paket', 'paket.id')
+                                    ->toArray()
+                            )
+                            ->helperText('Pilih terlebih dahulu nama jemaah'),
+                        Forms\Components\TextInput::make('nominal')
+                            ->prefix('IDR')
+                            ->mask(
+                                RawJs::make(
+                                    <<<'JS'
+                                        $money($input, ',', '.', 0);
+                                    JS
+                                )
+                            )
+                            ->stripCharacters(['.'])
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\DateTimePicker::make('waktu_setor')
+                            ->displayFormat('d F Y H:m')
+                            ->default(now())
+                            ->native(false)
+                            ->required(),
+
+                    ])
+                    ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('paket_jemaah_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('jemaahPaket.jemaah.nama_ktp')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('jemaahPaket.paket.nama_paket')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nominal')
                     ->numeric()
@@ -90,8 +99,7 @@ class SetoranJemaahResource extends Resource
                 Tables\Columns\TextColumn::make('waktu_setor')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('bukti_setor')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('bukti_setor'),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
@@ -131,7 +139,7 @@ class SetoranJemaahResource extends Resource
         return [
             'index'     => Pages\ListSetoranJemaahs::route('/'),
             'create'    => Pages\CreateSetoranJemaah::route('/create'),
-            'view'      => Pages\ViewSetoranJemaah::route('/{record}'),
+            // 'view'      => Pages\ViewSetoranJemaah::route('/{record}'),
             'edit'      => Pages\EditSetoranJemaah::route('/{record}/edit'),
         ];
     }

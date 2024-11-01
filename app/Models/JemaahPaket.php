@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JemaahPaket extends Model
@@ -25,5 +26,10 @@ class JemaahPaket extends Model
     public function paket()
     {
         return $this->belongsTo(Paket::class);
+    }
+
+    public function setoranJemaah(): HasMany
+    {
+        return $this->hasMany(SetoranJemaah::class);
     }
 }
