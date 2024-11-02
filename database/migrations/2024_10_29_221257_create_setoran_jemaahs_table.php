@@ -18,8 +18,10 @@ return new class extends Migration
 
             $table->unsignedInteger('nominal');
             $table->datetime('waktu_setor');
-            $table->string('bukti_setor', 50);
-            $table->boolean('status_setoran')->default(false);
+            $table->enum('metode_setor', ['Tunai', 'Transfer']);
+            $table->enum('status_setoran', ['Pending', 'Terverifikasi', 'Ditolak'])->default('Pending');
+            $table->string('bukti_setor', 50)->nullable();
+            $table->string('catatan', 50)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

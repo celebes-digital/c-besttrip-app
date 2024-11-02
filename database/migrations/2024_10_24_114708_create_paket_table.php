@@ -20,6 +20,8 @@ return new class extends Migration
 
             $table->date('tgl_paket');
             $table->string('foto', 50)->nullable();
+            $table->unsignedSmallInteger('kuota');
+            $table->unsignedSmallInteger('terisi')->default(0);
             $table->boolean('is_active')->default(true);
 
             $table->softDeletes();

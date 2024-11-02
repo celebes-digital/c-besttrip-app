@@ -15,17 +15,17 @@ return new class extends Migration
             $table->id();
 
             $table->string('nama_ktp', 100);
+            $table->char('nik', 20)->unique();
             $table->char('kelamin', 1);
-            $table->date('tanggal_lahir');
             $table->string('tempat_lahir', 100);
+            $table->date('tanggal_lahir');
             $table->char('no_hp', 20);
             $table->string('email', 100)->nullable();
-            $table->char('nik', 20)->unique();
-            $table->string('foto_ktp', 50);
+            $table->char('foto_ktp', 100);
             
             $table->string('nama_paspor', 100)->nullable();
             $table->char('no_paspor', 20)->nullable();
-            $table->string('foto_paspor', 50)->nullable();
+            $table->char('foto_paspor', 100)->nullable();
             $table->date('berlaku_paspor')->nullable();
             
             $table->string('alamat', 100);
