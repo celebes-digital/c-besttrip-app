@@ -5,9 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SetoranJemaahResource\Pages;
 use App\Filament\Resources\SetoranJemaahResource\RelationManagers;
 
-use App\Models\Jemaah;
-use App\Models\JemaahPaket;
-use App\Models\Paket;
 use App\Models\SetoranJemaah;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -31,19 +28,24 @@ class SetoranJemaahResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\Split::make([
-                    Forms\Components\FileUpload::make('bukti_setor')
-                        ->label('Bukti Setor')
-                        ->image()
-                        ->directory('poto/setoran')
-                        ->panelAspectRatio('6:5')
-                        ->required(),
+                Forms\Components\FileUpload::make('bukti_setor')
+                    ->label('Bukti Setor')
+                    ->image()
+                    ->directory('poto/setoran')
+                    ->panelAspectRatio('6:5')
+                    ->required(),
+                Forms\Components\Group::make([
                     Forms\Components\Group::make([
                         Forms\Components\Select::make('jemaah_id')
                             ->native(false)
                             ->label('Nama Jemaah')
-                            ->default('jemaahPaket.jemaah_id')
-                            ->relationship('jemaahPaket.jemaah', 'nama_ktp')
+                            ->relationship(
+                                'jemaah',
+                                'nama_ktp',
+                            )
+                            ->afterStateUpdated(
+                                fn(Set $set) => $set('paket_id', null)
+                            )
                             ->live()
                             ->searchable()
                             ->preload()
@@ -51,38 +53,53 @@ class SetoranJemaahResource extends Resource
                         Forms\Components\Select::make('paket_id')
                             ->label('Nama Paket')
                             ->required()
-                            ->default('jemaahPaket.paket_id')
-                            ->disabled(fn (Get $get) => !$get('jemaah_id'))
+                            ->disabled(fn(Get $get) => !$get('jemaah_id'))
                             ->native(false)
-                            ->options(
-                                fn (Get $get) 
-                                => JemaahPaket::query()
-                                    ->where('jemaah_id', $get('jemaah_id'))
-                                    ->join('paket', 'paket.id', 'paket_id')
-                                    ->pluck('nama_paket', 'paket.id')
-                                    ->toArray()
-                            )
+                            ->options(function (Get $get) {
+                                $jemaahId = $get('jemaah_id');
+
+                                if (!$jemaahId) {
+                                    return [];
+                                }
+
+                                $options = \App\Models\JemaahPaket::where('jemaah_id', $jemaahId)
+                                    ->join('paket', 'paket.id', '=', 'jemaah_paket.paket_id')
+                                    ->pluck('paket.nama_paket', 'paket.id')
+                                    ->toArray();
+
+                                // Jika tidak ada opsi, kembalikan array dengan pesan "Tidak ada paket"
+                                if (empty($options)) {
+                                    return ['' => 'Tidak ada paket tersedia'];
+                                }
+
+                                return $options;
+                            })
                             ->helperText('Pilih terlebih dahulu nama jemaah'),
-                        Forms\Components\TextInput::make('nominal')
-                            ->prefix('IDR')
-                            ->mask(
-                                RawJs::make(
-                                    <<<'JS'
+                    ])
+                        ->relationship('jemaahPaket'),
+                    Forms\Components\Textarea::make('keterangan')
+                        ->label('Keterangan')
+                        ->rows(3)
+                        ->required(),
+                    Forms\Components\TextInput::make('nominal')
+                        ->prefix('IDR')
+                        ->mask(
+                            RawJs::make(
+                                <<<'JS'
                                         $money($input, ',', '.', 0);
                                     JS
-                                )
                             )
-                            ->stripCharacters(['.'])
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\DateTimePicker::make('waktu_setor')
-                            ->displayFormat('d F Y H:m')
-                            ->default(now())
-                            ->native(false)
-                            ->required(),
-
-                    ])
-                    ]);
+                        )
+                        ->stripCharacters(['.'])
+                        ->required()
+                        ->numeric(),
+                    Forms\Components\DateTimePicker::make('waktu_setor')
+                        ->displayFormat('d F Y H:m')
+                        ->default(now())
+                        ->native(false)
+                        ->required(),
+                ])
+            ]);
     }
 
     public static function table(Table $table): Table
