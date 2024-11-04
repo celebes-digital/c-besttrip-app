@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\StatSetoranMasukWidget;
 use App\Filament\Widgets\StatsOverviewWidget;
 
 class Dashboard extends \Filament\Pages\Dashboard
@@ -13,6 +14,7 @@ class Dashboard extends \Filament\Pages\Dashboard
     {
         return [
             StatsOverviewWidget::class,
+            StatSetoranMasukWidget::class,
         ];
     }
 }

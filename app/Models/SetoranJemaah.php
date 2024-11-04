@@ -24,7 +24,7 @@ class SetoranJemaah extends Model
     ];
 
     protected $casts = [
-        'tgl_setor' => 'datetime',
+        'waktu_setor' => 'datetime',
         'status_setoran' => 'boolean'
     ];
 
