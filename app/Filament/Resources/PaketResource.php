@@ -17,12 +17,17 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class PaketResource extends Resource
 {
     protected static ?string $model             = Paket::class;
+    protected static ?string $modelLabel        = 'Manajemen Paket';
     protected static ?string $navigationIcon    = 'heroicon-o-squares-plus';
     protected static ?string $slug              = 'paket';
 
     public static function form(Form $form): Form
     {
         return $form
+            ->columns([
+                'md' => 7,
+                'lg' => 7,
+            ])
             ->schema([
                 Forms\Components\FileUpload::make('foto')
                     ->image()
@@ -31,26 +36,51 @@ class PaketResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('nama_paket')
                     ->required()
+                    ->columnSpan([
+                        'md' => 3,
+                        'lg' => 3,
+                    ])
                     ->maxLength(50),
                 Forms\Components\TextInput::make('deskripsi')
+                    ->columnSpan([
+                        'md' => 3,
+                        'lg' => 3,
+                    ])
                     ->maxLength(255),
-                Forms\Components\TextInput::make('harga')
-                    ->prefix('IDR')
-                    ->mask(RawJs::make(
-                        <<<'JS'
-                            $money($input, ',', '.', 0);
-                        JS
-                    ))
-                    ->stripCharacters(['.'])
-                    ->required()
-                    ->numeric(),
-                Forms\Components\DatePicker::make('tgl_paket')
-                    ->label('Tanggal Paket')
-                    ->native(false)
-                    ->displayFormat('d F Y')
-                    ->prefixIcon('heroicon-o-calendar')
-                    ->prefixIconColor('primary')
-                    ->required(),
+                Forms\Components\Toggle::make('is_active')
+                    ->label('Aktif')
+                    ->inline(false)
+                    ->default(true),
+                Forms\Components\Group::make([
+                    Forms\Components\TextInput::make('harga')
+                        ->prefix('IDR')
+                        ->mask(RawJs::make(
+                            <<<'JS'
+                                $money($input, ',', '.', 0);
+                            JS
+                        ))
+                        ->stripCharacters(['.'])
+                        ->required()
+                        ->numeric(),
+                    Forms\Components\TextInput::make('kuota')
+                        ->required()
+                        ->minValue(1)
+                        ->numeric()
+                        ->prefixIcon('heroicon-o-user-group')
+                        ->prefixIconColor('primary'),
+                    Forms\Components\DatePicker::make('tgl_paket')
+                        ->label('Tanggal Paket')
+                        ->native(false)
+                        ->displayFormat('d F Y')
+                        ->prefixIcon('heroicon-o-calendar')
+                        ->prefixIconColor('primary')
+                        ->required(),
+                ])
+                ->columnSpanFull()
+                ->columns([
+                    'md' => 3,
+                    'lg' => 3,
+                ]),
             ]);
     }
 
@@ -58,12 +88,18 @@ class PaketResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('foto'),
+                // Tables\Columns\ImageColumn::make('foto')
+                //     ->grow(false),
                 Tables\Columns\TextColumn::make('nama_paket')
-                    ->grow(false)
+                    ->grow(true)
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('deskripsi'),
+                Tables\Columns\TextColumn::make('kuota')
+                    ->numeric()
+                    ->formatStateUsing(fn ($state, $record) => $record->terisi . '/' . $state)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('deskripsi')
+                    ->limit(25),
                 Tables\Columns\TextColumn::make('harga')
                     ->prefix('IDR ')
                     ->numeric()
@@ -74,22 +110,23 @@ class PaketResource extends Resource
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif'),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->label('Waktu Hapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: false),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Waktu Buat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Terakhir Ubah')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('deleted_at')
+                //     ->label('Waktu Hapus')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: false),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->label('Waktu Buat')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->label('Terakhir Ubah')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('updated_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make()
                     ->native(false),
@@ -106,6 +143,8 @@ class PaketResource extends Resource
                     ),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->color('primary'),
                 Tables\Actions\ViewAction::make()
                     ->color('primary'),
                 Tables\Actions\EditAction::make()
