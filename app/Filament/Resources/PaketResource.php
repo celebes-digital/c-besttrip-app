@@ -145,8 +145,6 @@ class PaketResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->color('primary'),
-                Tables\Actions\ViewAction::make()
-                    ->color('primary'),
                 Tables\Actions\EditAction::make()
                     ->color('warning'),
                 Tables\Actions\ActionGroup::make([
