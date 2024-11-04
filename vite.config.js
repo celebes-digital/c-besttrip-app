@@ -19,6 +19,7 @@ export default defineConfig({
                 "app/Http/Livewire/**/*",
                 "app/Forms/Components/**/*",
                 "resources/css/filament/admin/theme.css",
+                "resources/css/app.css",
             ],
         }),
     ],
