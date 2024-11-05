@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class JemaahResource extends Resource
 {
     protected static ?string $model             = Jemaah::class;
+    protected static ?string $modelLabel        = 'Manajemen Jemaah';
     protected static ?string $navigationIcon    = 'heroicon-o-identification';
     protected static ?string $slug              = 'jemaah';
 
@@ -76,6 +77,7 @@ class JemaahResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('updated_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
