@@ -11,16 +11,13 @@ use App\Models\Jemaah;
 use App\Models\JemaahPaket;
 use App\Models\Paket;
 use App\Models\SetoranJemaah;
-use Filament\Actions\Action;
-use Filament\Resources\Pages\CreateRecord;
+
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\HtmlString;
@@ -36,8 +33,10 @@ class FormPendaftaranPage extends Component implements HasForms
     public function mount(Jemaah $jemaah): void
     {
         $data = $jemaah->toArray();
+
         $data['from_date'] = now();
         $data['to_date'] = now()->addMonths(3);
+
         $this->form->fill($data);
     }
 
@@ -144,38 +143,9 @@ class FormPendaftaranPage extends Component implements HasForms
             ->model(Jemaah::class);
     }
 
-    // public function getFormUploadedFiles(string $statePath): ?array
-    // {
-    //     // dd($statePath);
-    //     return $this->data[$statePath] ?? null;
-    // }
-
-    public function createForm(): void
+    public function create(): void
     {
-        $data = $this->data;
-
-        // Handle file upload
-        // if (isset($this->data['bukti_setor']) && is_array($this->data['bukti_setor'])) {
-        //     // $this->data['bukti_setor'] = $data['bukti_setor'][0] ?? null;
-        //     // $data['bukti_setor'] = 'bukti_ktp.jpg';
-        // }
-
-        // if (isset($data['foto_ktp']) && is_array($data['foto_ktp'])) {
-        //     // $data['foto_ktp'] = $data['foto_ktp'][0] ?? null;
-        //     $data['foto_ktp'] = 'foto_ktp.jpg';
-        // }
-
-        // if (isset($data['foto_paspor']) && is_array($data['foto_paspor'])) {
-        //     $data['foto_paspor'] = 'foto_passport.jpg';
-        // }
-
-        // $filenameBuktiSetor = '';
-        
-        // foreach ( $data['bukti_setor'] as $key => $value) {
-        //     dd($key['filename']);
-        // }
-        
-        // dd($filenameBuktiSetor);
+        $data = $this->form->getState();
 
         DB::transaction(function () use ($data) {
             $jemaah = Jemaah::create($data);
@@ -197,9 +167,9 @@ class FormPendaftaranPage extends Component implements HasForms
             $setoran->waktu_setor       = now();
 
             $setoran->save();
-
-            // return $jemaah;
         });
+
+        $this->form->fill();
     }
 
     public function render()
