@@ -21,56 +21,13 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\HtmlString;
 
 class FormPendaftaranPage extends Component implements HasForms
 {
     use InteractsWithForms;
-    // use CreateRecord\Concerns\HasWizard;
-
-    // protected static string $resource       = JemaahResource::class;
-    // protected static ?string $title         = 'Tambah Jemaah';
-    // protected static ?string $breadcrumb    = 'Tambah';
-
-    // public function hasSkippableSteps(): bool
-    // {
-    //     return false;
-    // }
-
-    // protected function getSubmitFormAction(): Action
-    // {
-    //     return Action::make('create')
-    //         ->label('Simpan Data')
-    //         ->submit('create');
-    // }
-
-    // protected function handleRecordCreation(array $data): Model
-    // {
-    //     // dd($data);
-    //     return DB::transaction(function () use ($data) {
-    //         $jemaah = static::getModel()::create($data);
-
-    //         // Buat paket jemaah
-    //         $paketJemaah = new JemaahPaket;
-
-    //         $paketJemaah->jemaah_id = $jemaah->id;
-    //         $paketJemaah->paket_id  = $data['paket_id'];
-
-    //         $paketJemaah->save();
-
-    //         // Buat data setoran awal
-    //         $setoran = new SetoranJemaah;
-
-    //         $setoran->jemaah_paket_id   = $paketJemaah->id;
-    //         $setoran->bukti_setor       = $data['bukti_setor'];
-    //         $setoran->nominal           = $data['nominal'];
-    //         $setoran->waktu_setor       = now();
-
-    //         $setoran->save();
-
-    //         return $jemaah;
-    //     });
-    // }
 
     public ?array $data = [];
 
@@ -82,6 +39,12 @@ class FormPendaftaranPage extends Component implements HasForms
         $data['from_date'] = now();
         $data['to_date'] = now()->addMonths(3);
         $this->form->fill($data);
+    }
+
+    public function updatePaketId(int $paketId): void
+    {
+
+        $this->data['paket_id'] = $paketId;
     }
 
     public static function form(Form $form): Form
@@ -166,37 +129,77 @@ class FormPendaftaranPage extends Component implements HasForms
                         ->icon('heroicon-o-banknotes')
                         ->completedIcon('heroicon-o-document-check'),
                 ])
+            ->submitAction(
+                new HtmlString(Blade::render(
+                <<<BLADE
+                    <x-filament::button
+                        type="submit"
+                        size="sm"
+                    >
+                        Submit
+                    </x-filament::button>
+                BLADE)))
             ])
             ->statePath('data')
             ->model(Jemaah::class);
     }
 
-    public function create(): void
+    // public function getFormUploadedFiles(string $statePath): ?array
+    // {
+    //     // dd($statePath);
+    //     return $this->data[$statePath] ?? null;
+    // }
+
+    public function createForm(): void
     {
-        // $data = $this->data;
-        // DB::transaction(function () use ($data) {
-        //     $jemaah = Jemaah::create($data);
+        $data = $this->data;
 
-        //     // Buat paket jemaah
-        //     $paketJemaah = new JemaahPaket;
+        // Handle file upload
+        // if (isset($this->data['bukti_setor']) && is_array($this->data['bukti_setor'])) {
+        //     // $this->data['bukti_setor'] = $data['bukti_setor'][0] ?? null;
+        //     // $data['bukti_setor'] = 'bukti_ktp.jpg';
+        // }
 
-        //     $paketJemaah->jemaah_id = $jemaah->id;
-        //     $paketJemaah->paket_id  = $data['paket_id'];
+        // if (isset($data['foto_ktp']) && is_array($data['foto_ktp'])) {
+        //     // $data['foto_ktp'] = $data['foto_ktp'][0] ?? null;
+        //     $data['foto_ktp'] = 'foto_ktp.jpg';
+        // }
 
-        //     $paketJemaah->save();
+        // if (isset($data['foto_paspor']) && is_array($data['foto_paspor'])) {
+        //     $data['foto_paspor'] = 'foto_passport.jpg';
+        // }
 
-        //     // Buat data setoran awal
-        //     $setoran = new SetoranJemaah;
+        // $filenameBuktiSetor = '';
+        
+        // foreach ( $data['bukti_setor'] as $key => $value) {
+        //     dd($key['filename']);
+        // }
+        
+        // dd($filenameBuktiSetor);
 
-        //     $setoran->jemaah_paket_id   = $paketJemaah->id;
-        //     $setoran->bukti_setor       = $data['bukti_setor'];
-        //     $setoran->nominal           = $data['nominal'];
-        //     $setoran->waktu_setor       = now();
+        DB::transaction(function () use ($data) {
+            $jemaah = Jemaah::create($data);
 
-        //     $setoran->save();
+            // Buat paket jemaah
+            $paketJemaah = new JemaahPaket;
 
-        //     return $jemaah;
-        // });
+            $paketJemaah->jemaah_id = $jemaah->id;
+            $paketJemaah->paket_id  = $data['paket_id'];
+
+            $paketJemaah->save();
+
+            // Buat data setoran awal
+            $setoran = new SetoranJemaah;
+
+            $setoran->jemaah_paket_id   = $paketJemaah->id;
+            $setoran->bukti_setor       = $data['bukti_setor'];
+            $setoran->nominal           = $data['nominal'];
+            $setoran->waktu_setor       = now();
+
+            $setoran->save();
+
+            // return $jemaah;
+        });
     }
 
     public function render()

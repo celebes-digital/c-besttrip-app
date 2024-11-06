@@ -20,7 +20,7 @@
                             <span class="text-rose-500 font-semibold text-xl !py-12">Rp{{ $item['harga'] }}</span>
                         </div>
                     </div>
-                    <button wire:click="set('data.paket_id', {{ $item['id'] }})"
+                    <button wire:click.prevent="set('data.paket_id', {{ $item['id'] }})"
                         class="bg-rose-600 hover:bg-rose-500 transition-all ease-in-out rounded-lg text-white w-full p-2">{{ $this->data['paket_id'] === $item['id'] ? 'Terpilih' : 'Pilih Paket' }}</button>
                 </div>
             @endforeach
