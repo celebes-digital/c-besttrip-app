@@ -28,6 +28,11 @@ class Paket extends Model
         'tgl_paket' => 'date',
     ];
 
+    public function getTglPaketAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('d F Y');
+    }
+
     public function jemaahs(): BelongsToMany
     {
         return $this->belongsToMany(Jemaah::class, 'jemaah_paket', 'paket_id', 'jemaah_id')

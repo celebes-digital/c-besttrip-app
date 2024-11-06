@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class CekJemaahPaket extends Component
 {
-    public ?JemaahPaket $data;
+    public JemaahPaket $data;
 
     public function mount($kode_paket)
     {
