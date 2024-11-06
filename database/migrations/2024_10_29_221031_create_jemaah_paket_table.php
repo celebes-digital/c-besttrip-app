@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('jemaah_paket', function (Blueprint $table) {
             $table->id();
 
+            $table->char('kode_paket', 8)->unique();
             $table->foreignId('jemaah_id')->constrained('jemaah');
             $table->foreignId('paket_id')->constrained('paket');
             $table->boolean('status_pendaftaran')->default(0);
