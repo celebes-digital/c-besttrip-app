@@ -1,6 +1,8 @@
 <?php
 
+use App\Livewire\CekJemaahPaket;
 use App\Livewire\FormPendaftaranPage;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,3 +10,5 @@ Route::get('/', function () {
 });
 
 Route::get('/daftar', FormPendaftaranPage::class)->name('daftar');
+
+Route::get('/jemaah/{kode_paket}/paket', CekJemaahPaket::class)->name('jemaah.paket');
