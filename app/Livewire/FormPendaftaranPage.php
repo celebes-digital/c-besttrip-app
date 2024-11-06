@@ -128,16 +128,21 @@ class FormPendaftaranPage extends Component implements HasForms
                         ->icon('heroicon-o-banknotes')
                         ->completedIcon('heroicon-o-document-check'),
                 ])
-            ->submitAction(
-                new HtmlString(Blade::render(
-                <<<BLADE
-                    <x-filament::button
-                        type="submit"
-                        size="sm"
-                    >
-                        Submit
-                    </x-filament::button>
-                BLADE)))
+                    ->submitAction(
+                        new HtmlString(
+                            Blade::render(
+                                <<<BLADE
+                                    <x-filament::button
+                                        type="submit"
+                                        form="create"
+                                        size="sm"
+                                    >
+                                        Submit
+                                    </x-filament::button>
+                                BLADE
+                            )
+                        )
+                    )
             ])
             ->statePath('data')
             ->model(Jemaah::class);
@@ -147,29 +152,37 @@ class FormPendaftaranPage extends Component implements HasForms
     {
         $data = $this->form->getState();
 
-        DB::transaction(function () use ($data) {
-            $jemaah = Jemaah::create($data);
+        $paketJemaah = [];
+        try {
+            DB::transaction(function () use ($data, &$paketJemaah) {
+                $jemaah = Jemaah::create($data);
 
-            // Buat paket jemaah
-            $paketJemaah = new JemaahPaket;
+                // Buat paket jemaah
+                $paketJemaah = new JemaahPaket;
 
-            $paketJemaah->jemaah_id = $jemaah->id;
-            $paketJemaah->paket_id  = $data['paket_id'];
+                $paketJemaah->jemaah_id = $jemaah->id;
+                $paketJemaah->paket_id  = $data['paket_id'];
 
-            $paketJemaah->save();
+                $paketJemaah->save();
 
-            // Buat data setoran awal
-            $setoran = new SetoranJemaah;
+                // Buat data setoran awal
+                $setoran = new SetoranJemaah;
 
-            $setoran->jemaah_paket_id   = $paketJemaah->id;
-            $setoran->bukti_setor       = $data['bukti_setor'];
-            $setoran->nominal           = $data['nominal'];
-            $setoran->waktu_setor       = now();
+                $setoran->jemaah_paket_id   = $paketJemaah->id;
+                $setoran->bukti_setor       = $data['bukti_setor'];
+                $setoran->nominal           = $data['nominal'];
+                $setoran->waktu_setor       = now();
 
-            $setoran->save();
-        });
+                $setoran->save();
+            });
 
-        $this->form->fill();
+            $this->form->fill();
+
+            redirect()->to('/jemaah/' . $paketJemaah['kode_paket'] . '/paket');
+        } catch (\Exception $e) {
+            // Handle the exception and redirect to an error page
+            redirect()->to('/error')->with('error', 'Data gagal disimpan. Silakan coba lagi.');
+        }
     }
 
     public function render()
