@@ -78,11 +78,16 @@ class FormPendaftaranPage extends Component implements HasForms
 
     public function mount(Jemaah $jemaah): void
     {
-        $this->form->fill($jemaah->toArray());
+        $data = $jemaah->toArray();
+        $data['from_date'] = now();
+        $data['to_date'] = now()->addMonths(3);
+        $this->form->fill($data);
     }
 
     public static function form(Form $form): Form
     {
+        $now = now();
+
         return $form
             ->schema([
                 Wizard::make([
@@ -91,16 +96,16 @@ class FormPendaftaranPage extends Component implements HasForms
                             Forms\Components\Group::make([
                                 Forms\Components\DatePicker::make('from_date')
                                     ->label('Dari tanggal')
+                                    ->default($now)
                                     ->native(false)
                                     ->live(onBlur: true)
-                                    ->displayFormat('d F Y')
-                                    ->default(now()),
+                                    ->displayFormat('d F Y'),
                                 Forms\Components\DatePicker::make('to_date')
                                     ->label('Sampai tanggal')
                                     ->live(onBlur: true)
                                     ->displayFormat('d F Y')
                                     ->native(false)
-                                    ->default(now()->addMonths(3))
+                                    ->default($now->addMonths(3))
                             ])
                                 ->columns(3),
                             Forms\Components\Hidden::make('harga_paket'),

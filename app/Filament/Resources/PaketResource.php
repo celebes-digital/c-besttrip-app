@@ -96,7 +96,7 @@ class PaketResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('kuota')
                     ->numeric()
-                    ->formatStateUsing(fn ($state, $record) => $record->terisi . '/' . $state)
+                    ->formatStateUsing(fn ($state, Paket $record) => $record->jemaahPaket->count() . '/' . $state)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deskripsi')
                     ->limit(25),

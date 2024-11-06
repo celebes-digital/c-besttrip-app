@@ -5,15 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ $title ?? 'C-Besttrip' }}</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
         @filamentStyles
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- @livewireStyles --}}
     </head>
-    <body class="bg-zinc-100 dark:bg-zinc-800">
+    <body class="-bg-zinc-100 -dark:bg-zinc-800">
         <main>
             {{ $slot }}
         </main>
-        @livewireScripts
+        {{-- @livewireScripts --}}
         @filamentScripts
     </body>
 </html>
