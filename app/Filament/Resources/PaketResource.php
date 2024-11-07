@@ -181,8 +181,8 @@ class PaketResource extends Resource
     {
         return [
             'index'     => Pages\ListPakets::route('/'),
-            'view'      => Pages\ViewPaket::route('/{record}'),
             'create'    => Pages\CreatePaket::route('/create'),
+            'view'      => Pages\ViewPaket::route('/{record}'),
             'edit'      => Pages\EditPaket::route('/{record}/edit'),
         ];
     }
