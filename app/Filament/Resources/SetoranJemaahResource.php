@@ -112,9 +112,11 @@ class SetoranJemaahResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nominal')
                     ->numeric()
+                    ->formatStateUsing(fn ($state): string => h_format_currency($state))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('waktu_setor')
                     ->dateTime()
+                    ->formatStateUsing(fn ($state): string => h_format_datetime($state))
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('bukti_setor'),
                 Tables\Columns\TextColumn::make('deleted_at')
