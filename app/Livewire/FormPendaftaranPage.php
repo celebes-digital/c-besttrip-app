@@ -2,22 +2,24 @@
 
 namespace App\Livewire;
 
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Livewire\Component;
 
 use App\Filament\Resources\JemaahResource;
-use App\Models\Jemaah;
-use App\Models\JemaahPaket;
-use App\Models\Paket;
-use App\Models\SetoranJemaah;
 
+use App\Models\Jemaah;
+use App\Models\Paket;
+
+use Exception;
+
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\HtmlString;
@@ -34,8 +36,8 @@ class FormPendaftaranPage extends Component implements HasForms
     {
         $data = $jemaah->toArray();
 
-        $data['from_date'] = now();
-        $data['to_date'] = now()->addMonths(3);
+        $data['from_date']  = now();
+        $data['to_date']    = now()->addMonths(3);
 
         $this->form->fill($data);
     }
@@ -152,35 +154,28 @@ class FormPendaftaranPage extends Component implements HasForms
     {
         $data = $this->form->getState();
 
-        $paketJemaah = [];
         try {
-            DB::transaction(function () use ($data, &$paketJemaah) {
+            $jemaahPaket = DB::transaction(function () use ($data, &$paketJemaah) {
                 $jemaah = Jemaah::create($data);
 
-                // Buat paket jemaah
-                $paketJemaah = new JemaahPaket;
+                $jemaahPaket = $jemaah->jemaahPakets()->create([
+                    'paket_id' => $data['paket_id'],
+                ]);
 
-                $paketJemaah->jemaah_id = $jemaah->id;
-                $paketJemaah->paket_id  = $data['paket_id'];
+                $jemaahPaket->setorans()->create([
+                    'jemaah_paket_id'   => $jemaahPaket->id,
+                    'bukti_setor'       => $data['bukti_setor'],
+                    'nominal'           => $data['nominal'],
+                    'waktu_setor'       => now(),
+                ]);
 
-                $paketJemaah->save();
-
-                // Buat data setoran awal
-                $setoran = new SetoranJemaah;
-
-                $setoran->jemaah_paket_id   = $paketJemaah->id;
-                $setoran->bukti_setor       = $data['bukti_setor'];
-                $setoran->nominal           = $data['nominal'];
-                $setoran->waktu_setor       = now();
-
-                $setoran->save();
+                return $jemaahPaket;
             });
 
             $this->form->fill();
-
-            redirect()->to('/jemaah/' . $paketJemaah['kode_paket'] . '/paket');
-        } catch (\Exception $e) {
-            // Handle the exception and redirect to an error page
+            
+            redirect()->to('/jemaah/' . $jemaahPaket['kode_paket'] . '/paket');
+        } catch (Exception $e) {
             redirect()->to('/error')->with('error', 'Data gagal disimpan. Silakan coba lagi.');
         }
     }
