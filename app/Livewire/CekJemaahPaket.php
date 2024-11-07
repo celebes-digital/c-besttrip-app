@@ -12,6 +12,7 @@ class CekJemaahPaket extends Component
     public function mount($kode_paket)
     {
         $this->data = JemaahPaket::where('kode_paket', $kode_paket)->firstOrFail();
+        // dd($this->data);
     }
     
     public function render()

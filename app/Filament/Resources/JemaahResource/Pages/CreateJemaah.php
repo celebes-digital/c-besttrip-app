@@ -37,7 +37,6 @@ class CreateJemaah extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        // dd($data);
         return DB::transaction(function () use ($data) {
             $jemaah = static::getModel()::create($data);
 
