@@ -15,7 +15,8 @@ class JemaahPaket extends Pivot
 {
     use SoftDeletes;
 
-    protected $table = 'jemaah_paket';
+    protected $table        = 'jemaah_paket';
+    public $incrementing    = true;
 
     protected $fillable = [
         'jemaah_id',
@@ -56,7 +57,7 @@ class JemaahPaket extends Pivot
         return $this->belongsTo(Paket::class, 'paket_id', 'id');
     }
 
-    public function setoranJemaah(): HasMany
+    public function setorans(): HasMany
     {
         return $this->hasMany(SetoranJemaah::class, 'jemaah_paket_id', 'id');
     }

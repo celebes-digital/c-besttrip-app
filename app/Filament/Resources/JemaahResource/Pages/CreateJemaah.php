@@ -41,23 +41,16 @@ class CreateJemaah extends CreateRecord
         return DB::transaction(function () use ($data) {
             $jemaah = static::getModel()::create($data);
 
-            // Buat paket jemaah
-            $paketJemaah = new JemaahPaket;
-
-            $paketJemaah->jemaah_id = $jemaah->id;
-            $paketJemaah->paket_id  = $data['paket_id'];
-
-            $paketJemaah->save();
-
-            // Buat data setoran awal
-            $setoran = new SetoranJemaah;
-
-            $setoran->jemaah_paket_id   = $paketJemaah->id;
-            $setoran->bukti_setor       = $data['bukti_setor'];
-            $setoran->nominal           = $data['nominal'];
-            $setoran->waktu_setor       = now();
-
-            $setoran->save();
+            $jemaahPaket = $jemaah->jemaahPakets()->create([
+                'paket_id' => $data['paket_id'],
+            ]);
+            
+            $jemaahPaket->setorans()->create([
+                'jemaah_paket_id'   => $jemaahPaket->id,
+                'bukti_setor'       => $data['bukti_setor'],
+                'nominal'           => $data['nominal'],
+                'waktu_setor'       => now(),
+            ]);
 
             return $jemaah;
         });
