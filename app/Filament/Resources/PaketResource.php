@@ -167,13 +167,16 @@ class PaketResource extends Resource
 
     public static function getRelations(): array
     {
-        return [];
+        return [
+            RelationManagers\JemaahsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
     {
         return [
             'index'     => Pages\ListPakets::route('/'),
+            'view'      => Pages\ViewPaket::route('/{record}'),
             'create'    => Pages\CreatePaket::route('/create'),
             'edit'      => Pages\EditPaket::route('/{record}/edit'),
         ];
