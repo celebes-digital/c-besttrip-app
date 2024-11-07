@@ -17,7 +17,9 @@
                             elit. Sint vel aliquid, culpa nam provident qui eveniet cumque rerum? Quam sint totam eaque
                             explicabo recusandae praesentium pariatur dolores animi commodi sunt.</p>
                         <div class="py-2">
-                            <span class="text-rose-500 font-semibold text-xl !py-12">Rp{{ $item['harga'] }}</span>
+                            <span class="text-rose-500 font-semibold text-xl !py-12">
+                                {{ h_format_currency($item['harga']) }}
+                            </span>
                         </div>
                     </div>
                     <button wire:click.prevent="set('data.paket_id', {{ $item['id'] }})"
