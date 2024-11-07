@@ -254,4 +254,33 @@ class JemaahResource extends Resource
                     ->required(fn(Get $get) => !empty($get('nama_paspor'))),
             ]);
     }
+
+    public static function getSetoranAwalFormField(): Forms\Components\Wizard\Step
+    {
+        return Forms\Components\Wizard\Step::make('Setoran Awal')
+            ->schema([
+                Forms\Components\Split::make([
+                    Forms\Components\FileUpload::make('bukti_setor')
+                        ->label('Bukti Setoran Awal')
+                        ->required()
+                        ->image()
+                        ->directory('foto/bukti-setor'),
+                    Forms\Components\Select::make('nominal')
+                        ->label('Setoran Awal')
+                        ->required()
+                        ->options(
+                            function (Get $get) {
+                                return [
+                                    '5000000'               => 'Rp5.000.000',
+                                    '10000000'              => 'Rp10.000.000',
+                                    $get('harga_paket')     => 'Rp' . $get('harga_paket') . ' (Lunas)',
+                                ];
+                            }
+                        )
+                        ->native(false)
+                ])
+            ])
+            ->icon('heroicon-o-banknotes')
+            ->completedIcon('heroicon-o-document-check');
+    }
 }
