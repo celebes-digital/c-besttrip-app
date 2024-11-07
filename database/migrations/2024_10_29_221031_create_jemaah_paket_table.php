@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
 
             $table->char('kode_paket', 8)->unique();
-            $table->foreignId('jemaah_id')->constrained('jemaah');
-            $table->foreignId('paket_id')->constrained('paket');
+            $table->foreignId('jemaah_id')->constrained('jemaah')->cascadeOnDelete();
+            $table->foreignId('paket_id')->constrained('paket')->cascadeOnDelete();
             $table->boolean('status_pendaftaran')->default(0);
             $table->date('tgl_pendaftaran')->default(now());
 

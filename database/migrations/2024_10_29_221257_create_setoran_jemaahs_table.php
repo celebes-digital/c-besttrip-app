@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('setoran_jemaah', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('jemaah_paket_id')->constrained('jemaah_paket');
+            $table->foreignId('jemaah_paket_id')->constrained('jemaah_paket')->cascadeOnDelete();
 
             $table->unsignedInteger('nominal');
             $table->datetime('waktu_setor');
