@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\StatusJemaahPaket;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Support\Str;
 
-class JemaahPaket extends Model
+class JemaahPaket extends Pivot
 {
     use SoftDeletes;
 
@@ -25,6 +27,7 @@ class JemaahPaket extends Model
 
     protected $casts = [
         'tgl_pendaftaran' => 'date',
+        'status_pendaftaran' => StatusJemaahPaket::class,
     ];
 
     protected static function booted()

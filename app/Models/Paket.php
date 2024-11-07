@@ -36,7 +36,7 @@ class Paket extends Model
     public function jemaahs(): BelongsToMany
     {
         return $this->belongsToMany(Jemaah::class, 'jemaah_paket', 'paket_id', 'jemaah_id')
-            ->withPivot('status_pendaftaran', 'tgl_pendaftaran')
+            ->using(JemaahPaket::class)
             ->withTimestamps();
     }
 
