@@ -38,8 +38,8 @@
                         <p class="text-base font-medium">Setoran Awal</p>
                     </div>
                     <div class="w-3/4 px-2 py-1 flex flex-col md:flex-row justify-between">
-                        <p class="text-base font-medium">IDR {{$item->nominal}}</p>
-                        <p class="text-base font-medium">{{ \Carbon\Carbon::parse($item->waktu_setor)->format('d F Y H:i') }}</p>
+                        <p class="text-base font-medium">{{ h_format_currency($item->nominal) }}</p>
+                        <p class="text-base font-medium">{{ h_format_datetime($item->waktu_setor) }}</p>
                     </div>
                 </div>
             @endforeach
@@ -48,7 +48,9 @@
                     <p class="text-base font-medium">Jumlah</p>
                 </div>
                 <div class="w-3/4 px-2 py-1 flex flex-col md:flex-row justify-between">
-                    <p class="text-base font-medium">IDR {{ $data->setoranJemaah->sum('nominal') }}</p>
+                    <p class="text-base font-medium">
+                        {{ h_format_currency($data->setoranJemaah->sum('nominal')) }}
+                    </p>
                 </div>
             </div>
             <div class="flex items-center border-t border-t-rose-400">
@@ -56,7 +58,9 @@
                     <p class="text-base font-medium">Sisa</p>
                 </div>
                 <div class="w-3/4 px-2 py-1 flex flex-col md:flex-row justify-between">
-                    <p class="text-base font-medium">IDR {{ $data->paket->harga - $data->setoranJemaah->sum('nominal') }}</p>
+                    <p class="text-base font-medium">
+                        {{ h_format_currency($data->paket->harga - $data->setoranJemaah->sum('nominal')) }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -86,7 +90,7 @@
                     <p class="text-base font-medium">Harga</p>
                 </div>
                 <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">IDR {{ $data->paket->harga }}</p>
+                    <p class="text-base font-medium">{{ h_format_currency($data->paket->harga) }}</p>
                 </div>
             </div>
             <div class="flex items-center">
@@ -94,7 +98,9 @@
                     <p class="text-base font-medium">Sisa Kuota</p>
                 </div>
                 <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">{{ $data->paket->kuota - $data->paket->jemaahs->count() }}</p>
+                    <p class="text-base font-medium">
+                        {{ $data->paket->kuota - $data->paket->jemaahs->count() }}
+                    </p>
                 </div>
             </div>
         </div>
