@@ -32,7 +32,7 @@
     <div class="px-2 py-4 rounded-md md:flex md:px-8 md:py-10">
         <h1 class="text-rose-900 text-lg font-semibold mb-2 md:w-1/4">Riwayat Setoran</h1>
         <div class="space-y-2 md:w-3/4">
-            @foreach ($data->setoranJemaah as $item)
+            @foreach ($data->setorans as $item)
                 <div class="flex items-center">
                     <div class="w-1/4">
                         <p class="text-base font-medium">Setoran Awal</p>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="w-3/4 px-2 py-1 flex flex-col md:flex-row justify-between">
                     <p class="text-base font-medium">
-                        {{ h_format_currency($data->setoranJemaah->sum('nominal')) }}
+                        {{ h_format_currency($data->setorans->sum('nominal')) }}
                     </p>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="w-3/4 px-2 py-1 flex flex-col md:flex-row justify-between">
                     <p class="text-base font-medium">
-                        {{ h_format_currency($data->paket->harga - $data->setoranJemaah->sum('nominal')) }}
+                        {{ h_format_currency($data->paket->harga - $data->setorans->sum('nominal')) }}
                     </p>
                 </div>
             </div>
