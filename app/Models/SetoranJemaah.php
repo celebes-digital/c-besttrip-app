@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use App\Enums\StatusSetoran;
+use Illuminate\Database\Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SetoranJemaah extends Model
+class SetoranJemaah extends Eloquent\Model
 {
     use SoftDeletes;
 
@@ -24,21 +23,21 @@ class SetoranJemaah extends Model
     ];
 
     protected $casts = [
-        'waktu_setor' => 'datetime',
-        'status_setoran' => 'boolean'
+        'waktu_setor'       => 'datetime',
+        'status_setoran'    => StatusSetoran::class,
     ];
 
-    public function jemaahPaket(): BelongsTo
+    public function jemaahPaket(): Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(JemaahPaket::class, 'jemaah_paket_id', 'id');
     }
 
-    public function jemaah(): HasOneThrough
+    public function jemaah(): Eloquent\Relations\HasOneThrough
     {
         return $this->hasOneThrough(Jemaah::class, JemaahPaket::class);
     }
 
-    public function paket(): HasOneThrough
+    public function paket(): Eloquent\Relations\HasOneThrough
     {
         return $this->hasOneThrough(Paket::class, JemaahPaket::class);
     }

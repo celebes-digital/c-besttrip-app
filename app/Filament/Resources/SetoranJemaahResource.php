@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\StatusSetoran;
 use App\Filament\Resources\SetoranJemaahResource\Pages;
 use App\Filament\Resources\SetoranJemaahResource\RelationManagers;
 
@@ -119,6 +120,10 @@ class SetoranJemaahResource extends Resource
                     ->formatStateUsing(fn ($state): string => h_format_datetime($state))
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('bukti_setor'),
+                Tables\Columns\SelectColumn::make('status_setoran')
+                    ->selectablePlaceholder(false)
+                    ->options(StatusSetoran::class)
+                    ->rules(['required']),
                 Tables\Columns\TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()
