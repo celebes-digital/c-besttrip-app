@@ -49,7 +49,7 @@ class PilihPaket extends Component implements Forms\Contracts\HasForms
                     ->live(onBlur: true)
                     ->afterStateUpdated(
                         function ($state) {
-                            $this->startDate = $state;
+                            $this->endDate = $state;
                             $this->getDataPaket();
                         }
                     )
@@ -74,7 +74,7 @@ class PilihPaket extends Component implements Forms\Contracts\HasForms
             ->where('is_active', true)
             ->where('tgl_paket', '>=', $this->startDate);
 
-        if ($this->endDate) {
+        if ( $this->endDate ) {
             $query->where('tgl_paket', '<=', $this->endDate);
         }
 
