@@ -3,15 +3,19 @@
 
     @if ($dataPaket !== null)
 
-        @foreach ($dataPaket as $month => $items)
-            <h2 class="text-2xl font-bold my-4">{{ $month }}</h2>
+        {{-- @foreach ($dataPaket as $month => $items) --}}
+            {{-- <h2 class="text-2xl font-bold my-4">{{ $month }}</h2> --}}
             <div class="grid md:grid-col-2 lg:grid-cols-3 gap-4 w-full my-4 overflow-x-auto">
 
-                @foreach ($items as $item)
+                @foreach ($dataPaket as $item)
 
                     <div
                         class="w-full space-y-2 border p-4 rounded-2xl {{ $paketId === $item['id'] ? 'border-rose-400 bg-rose-100/25' : 'border-zinc-200' }}">
-                        <div class="w-full aspect-video bg-slate-200 rounded-xl"></div>
+                        <div class="w-full aspect-video bg-slate-200 rounded-xl overflow-hidden object-center">
+                            @if ($item['foto'] !== null)                                
+                                <img src="{{ url('storage/' . $item['foto']) }}" alt="" class="object-cover  h-full w-full">
+                            @endif
+                        </div>
                         <div class="space-y-2">
                             <h1 class="font-semibold text-lg">
                                 Paket {{ $item['nama_paket'] }}
@@ -42,7 +46,7 @@
                 @endforeach
                 
             </div>
-        @endforeach
+        {{-- @endforeach --}}
 
     @else
 

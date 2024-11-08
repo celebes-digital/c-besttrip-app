@@ -35,6 +35,7 @@ class PilihPaket extends Component implements Forms\Contracts\HasForms
                 Forms\Components\DatePicker::make('from_date')
                     ->label('Dari tanggal')
                     ->native(false)
+                    ->placeholder('Tentukan filter tanggal')
                     ->live(onBlur: true)
                     ->afterStateUpdated(
                         function ($state) 
@@ -47,6 +48,7 @@ class PilihPaket extends Component implements Forms\Contracts\HasForms
                 Forms\Components\DatePicker::make('end_date')
                     ->label('Sampai tanggal')
                     ->live(onBlur: true)
+                    ->placeholder('Tentukan filter tanggal')
                     ->afterStateUpdated(
                         function ($state) {
                             $this->endDate = $state;
@@ -81,7 +83,7 @@ class PilihPaket extends Component implements Forms\Contracts\HasForms
         $this->dataPaket = $query
             ->orderBy('tgl_paket', 'asc')
             ->get()
-            ->groupBy(fn ($value) => Carbon::parse($value->tgl_paket)->format('F Y'))
+            // ->groupBy(fn ($value) => Carbon::parse($value->tgl_paket)->format('F Y'))
             ->toArray();
     }
 
