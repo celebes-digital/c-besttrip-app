@@ -44,4 +44,9 @@ class Paket extends Model
     {
         return $this->hasMany(JemaahPaket::class);
     }
+
+    public function itenaryPakets(): HasMany
+    {
+        return $this->hasMany(IntenaryPaket::class);
+    }
 }
