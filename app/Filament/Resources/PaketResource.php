@@ -4,15 +4,15 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PaketResource\Pages;
 use App\Filament\Resources\PaketResource\RelationManagers;
+
 use App\Models\Paket;
-use Filament\Forms;
-use Filament\Forms\Form;
+
 use Filament\Resources\Resource;
-use Filament\Support\RawJs;
+use Filament\Forms;
 use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Support\RawJs;
+
+use Illuminate\Database\Eloquent;
 
 class PaketResource extends Resource
 {
@@ -21,7 +21,7 @@ class PaketResource extends Resource
     protected static ?string $navigationIcon    = 'heroicon-o-squares-plus';
     protected static ?string $slug              = 'paket';
 
-    public static function form(Form $form): Form
+    public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
@@ -117,14 +117,19 @@ class PaketResource extends Resource
                                 ->maxLength(255)
                                 ->required(),
                         ])
-                        ->itemLabel(fn(array $state): ?string => $state['hari_ke'] ? ('Hari ke-' . $state['hari_ke']) : 'Tentukan hari dan kegiatan'),
+                        ->itemLabel(
+                            fn(array $state): ?string 
+                            => $state['hari_ke'] 
+                                ? ('Hari ke-' . $state['hari_ke']) 
+                                : 'Tentukan hari dan kegiatan'
+                            ),
                     ])
                 ])
             ])
             ->columns(1);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Tables\Table $table): Tables\Table
     {
         return $table
             ->columns([
@@ -155,41 +160,13 @@ class PaketResource extends Resource
                     ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif'),
-                // Tables\Columns\TextColumn::make('deleted_at')
-                //     ->label('Waktu Hapus')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: false),
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->label('Waktu Buat')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('updated_at')
-                //     ->label('Terakhir Ubah')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('updated_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make()
                     ->native(false),
-                // Tables\Filters\TernaryFilter::make('is_active')
-                //     ->label('Paket Aktif')
-                //     ->native(false)
-                //     ->placeholder('Semua Paket')
-                //     ->trueLabel('Aktif')
-                //     ->falseLabel('Tidak Aktif')
-                //     ->queries(
-                //         true    : fn(Builder $query) => $query->where('is_active', true),
-                //         false   : fn(Builder $query) => $query->where('is_active', false),
-                //         blank   : fn(Builder $query) => $query,
-                //     ),
             ])
             ->actions([
-                // Tables\Actions\ViewAction::make()
-                //     ->color('primary'),
                 Tables\Actions\EditAction::make()
                     ->color('warning'),
                 Tables\Actions\ActionGroup::make([
@@ -214,7 +191,6 @@ class PaketResource extends Resource
     {
         return [
             RelationManagers\JemaahsRelationManager::class,
-            // RelationManagers\ItenaryPaketRelationManager::class,
         ];
     }
 
@@ -223,16 +199,15 @@ class PaketResource extends Resource
         return [
             'index'     => Pages\ListPakets::route('/'),
             'create'    => Pages\CreatePaket::route('/create'),
-            // 'view'      => Pages\ViewPaket::route('/{record}'),
             'edit'      => Pages\EditPaket::route('/{record}/edit'),
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): Eloquent\Builder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([
-                SoftDeletingScope::class,
+                Eloquent\SoftDeletingScope::class,
             ]);
     }
 }
