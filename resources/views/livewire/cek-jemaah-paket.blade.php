@@ -105,65 +105,25 @@
             </div>
         </div>
     </div>
+
+    @if ($data->paket->itenaryPakets)
     <div class="px-2 py-4 rounded-md md:px-8 md:py-10">
         <h1 class="text-rose-900 text-lg font-semibold mb-2 md:w-1/4">Itenary Paket Umrah</h1>
         <div class="space-y-2 py-2">
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 1</p>
+
+            @foreach ($data->paket->itenaryPakets as $itenary)
+                <div class="flex items-center">
+                    <div class="w-1/4">
+                        <p class="text-base font-medium">Hari {{ $itenary->hari_ke }}</p>
+                    </div>
+                    <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
+                        <p class="text-base font-medium">{{ $itenary->kegiatan }}</p>
+                    </div>
                 </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Keberangkatan dari Jakarta menuju Jeddah</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 2</p>
-                </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Tiba di Jeddah, perjalanan menuju Madinah</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 3</p>
-                </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Ziarah di Madinah</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 4</p>
-                </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Perjalanan menuju Mekkah</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 5</p>
-                </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Ibadah Umrah di Mekkah</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 6</p>
-                </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Ziarah di Mekkah</p>
-                </div>
-            </div>
-            <div class="flex items-center">
-                <div class="w-1/4">
-                    <p class="text-base font-medium">Hari 7</p>
-                </div>
-                <div class="w-3/4 border px-2 py-1 rounded-lg bg-slate-50 border-slate-100">
-                    <p class="text-base font-medium">Kepulangan ke Jakarta</p>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
+    @endif
+
 </main>
