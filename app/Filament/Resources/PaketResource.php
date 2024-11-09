@@ -24,64 +24,104 @@ class PaketResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->columns([
-                'md' => 7,
-                'lg' => 7,
-            ])
             ->schema([
-                Forms\Components\FileUpload::make('foto')
-                    ->image()
-                    ->imageEditor()
-                    ->directory('paket/foto')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('nama_paket')
-                    ->required()
-                    ->columnSpan([
-                        'md' => 3,
-                        'lg' => 3,
+                Forms\Components\Tabs::make('Tabs')
+                ->tabs([
+                    Forms\Components\Tabs\Tab::make('Informasi Paket')
+                    ->columns([
+                        'md' => 7,
+                        'lg' => 7,
                     ])
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('deskripsi')
-                    ->columnSpan([
-                        'md' => 3,
-                        'lg' => 3,
+                    ->schema([
+                        Forms\Components\FileUpload::make('foto')
+                            ->image()
+                            ->imageEditor()
+                            ->directory('paket/foto')
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('nama_paket')
+                            ->required()
+                            ->columnSpan([
+                                'md' => 3,
+                                'lg' => 3,
+                            ])
+                            ->maxLength(50),
+                        Forms\Components\TextInput::make('deskripsi')
+                            ->columnSpan([
+                                'md' => 3,
+                                'lg' => 3,
+                            ])
+                            ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Aktif')
+                            ->inline(false)
+                            ->default(true),
+                        Forms\Components\Group::make([
+                            Forms\Components\TextInput::make('harga')
+                                ->prefix('IDR')
+                                ->mask(RawJs::make(
+                                        <<<'JS'
+                                    $money($input, ',', '.', 0);
+                                JS
+                                ))
+                                ->stripCharacters(['.'])
+                                ->required()
+                                ->numeric(),
+                            Forms\Components\TextInput::make('kuota')
+                                ->required()
+                                ->minValue(1)
+                                ->numeric()
+                                ->prefixIcon('heroicon-o-user-group')
+                                ->prefixIconColor('primary'),
+                            Forms\Components\DatePicker::make('tgl_paket')
+                                ->label('Tanggal Paket')
+                                ->native(false)
+                                ->displayFormat('d F Y')
+                                ->prefixIcon('heroicon-o-calendar')
+                                ->prefixIconColor('primary')
+                                ->required(),
+                        ])
+                        ->columnSpanFull()
+                        ->columns([
+                            'md' => 3,
+                            'lg' => 3,
+                        ]),
+                    ]),
+                    Forms\Components\Tabs\Tab::make('Itenary Paket')
+                    ->schema([
+                    Forms\Components\Repeater::make('itenary_pakets')
+                        ->relationship('itenaryPakets')
+                        ->columns(7)
+                        ->label('')
+                        ->defaultItems(0)
+                        ->addActionLabel('Tambah Itenary')
+                        ->schema([
+                            Forms\Components\Select::make('hari_ke')
+                                ->options([
+                                    1 => 'Hari 1',
+                                    2 => 'Hari 2',
+                                    3 => 'Hari 3',
+                                    4 => 'Hari 4',
+                                    5 => 'Hari 5',
+                                    6 => 'Hari 6',
+                                    7 => 'Hari 7',
+                                ])
+                                ->native(false)
+                                ->columnSpan(2)
+                                ->live()
+                                ->label('')
+                                ->required(),
+                            Forms\Components\TextInput::make('kegiatan')
+                                ->hiddenLabel()
+                                ->columnSpan(5)
+                                ->extraAttributes(['class' => 'w-full'])
+                                ->maxLength(255)
+                                ->required(),
+                        ])
+                        ->itemLabel(fn(array $state): ?string => $state['hari_ke'] ? ('Hari ke-' . $state['hari_ke']) : 'Tentukan hari dan kegiatan'),
                     ])
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_active')
-                    ->label('Aktif')
-                    ->inline(false)
-                    ->default(true),
-                Forms\Components\Group::make([
-                    Forms\Components\TextInput::make('harga')
-                        ->prefix('IDR')
-                        ->mask(RawJs::make(
-                            <<<'JS'
-                                $money($input, ',', '.', 0);
-                            JS
-                        ))
-                        ->stripCharacters(['.'])
-                        ->required()
-                        ->numeric(),
-                    Forms\Components\TextInput::make('kuota')
-                        ->required()
-                        ->minValue(1)
-                        ->numeric()
-                        ->prefixIcon('heroicon-o-user-group')
-                        ->prefixIconColor('primary'),
-                    Forms\Components\DatePicker::make('tgl_paket')
-                        ->label('Tanggal Paket')
-                        ->native(false)
-                        ->displayFormat('d F Y')
-                        ->prefixIcon('heroicon-o-calendar')
-                        ->prefixIconColor('primary')
-                        ->required(),
                 ])
-                ->columnSpanFull()
-                ->columns([
-                    'md' => 3,
-                    'lg' => 3,
-                ]),
-            ]);
+            ])
+            ->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -174,7 +214,7 @@ class PaketResource extends Resource
     {
         return [
             RelationManagers\JemaahsRelationManager::class,
-            RelationManagers\ItenaryPaketRelationManager::class,
+            // RelationManagers\ItenaryPaketRelationManager::class,
         ];
     }
 
