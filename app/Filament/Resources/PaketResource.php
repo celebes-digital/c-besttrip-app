@@ -135,21 +135,21 @@ class PaketResource extends Resource
             ->filters([
                 Tables\Filters\TrashedFilter::make()
                     ->native(false),
-                Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Paket Aktif')
-                    ->native(false)
-                    ->placeholder('Semua Paket')
-                    ->trueLabel('Aktif')
-                    ->falseLabel('Tidak Aktif')
-                    ->queries(
-                        true    : fn(Builder $query) => $query->where('is_active', true),
-                        false   : fn(Builder $query) => $query->where('is_active', false),
-                        blank   : fn(Builder $query) => $query,
-                    ),
+                // Tables\Filters\TernaryFilter::make('is_active')
+                //     ->label('Paket Aktif')
+                //     ->native(false)
+                //     ->placeholder('Semua Paket')
+                //     ->trueLabel('Aktif')
+                //     ->falseLabel('Tidak Aktif')
+                //     ->queries(
+                //         true    : fn(Builder $query) => $query->where('is_active', true),
+                //         false   : fn(Builder $query) => $query->where('is_active', false),
+                //         blank   : fn(Builder $query) => $query,
+                //     ),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->color('primary'),
+                // Tables\Actions\ViewAction::make()
+                //     ->color('primary'),
                 Tables\Actions\EditAction::make()
                     ->color('warning'),
                 Tables\Actions\ActionGroup::make([
@@ -174,6 +174,7 @@ class PaketResource extends Resource
     {
         return [
             RelationManagers\JemaahsRelationManager::class,
+            RelationManagers\ItenaryPaketRelationManager::class,
         ];
     }
 
@@ -182,7 +183,7 @@ class PaketResource extends Resource
         return [
             'index'     => Pages\ListPakets::route('/'),
             'create'    => Pages\CreatePaket::route('/create'),
-            'view'      => Pages\ViewPaket::route('/{record}'),
+            // 'view'      => Pages\ViewPaket::route('/{record}'),
             'edit'      => Pages\EditPaket::route('/{record}/edit'),
         ];
     }
