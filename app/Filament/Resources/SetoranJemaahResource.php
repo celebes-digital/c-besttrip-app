@@ -3,18 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Enums\StatusSetoran;
-use App\Filament\Resources\SetoranJemaahResource\Pages;
-use App\Filament\Resources\SetoranJemaahResource\RelationManagers;
-
 use App\Models\SetoranJemaah;
+use App\Filament\Resources\SetoranJemaahResource\Pages;
+
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
+
 use Filament\Resources\Resource;
 use Filament\Support\RawJs;
+
 use Filament\Tables;
 use Filament\Tables\Table;
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -25,16 +24,32 @@ class SetoranJemaahResource extends Resource
     protected static ?string $navigationIcon    = 'heroicon-o-rectangle-stack';
     protected static ?string $slug              = 'setoran-jemaah';
 
-    public static function form(Form $form): Form
+    public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('bukti_setor')
-                    ->label('Bukti Setor')
-                    ->image()
-                    ->directory('poto/setoran')
-                    ->panelAspectRatio('6:5')
-                    ->required(),
+                Forms\Components\Group::make([
+                    Forms\Components\ToggleButtons::make('metode_setor')
+                        ->label('Metode Setor')
+                        ->options([
+                            'Tunai'     => 'Tunai',
+                            'Transfer'  => 'Transfer',
+                        ])
+                        ->icons([
+                            'Tunai'     => 'heroicon-o-banknotes',
+                            'Transfer'  => 'heroicon-o-credit-card',
+                        ])
+                        ->live()
+                        ->default('Tunai')
+                        ->inline()
+                        ->required(),
+                    Forms\Components\FileUpload::make('bukti_setor')
+                        ->label('')
+                        ->image()
+                        ->directory('poto/setoran')
+                        ->panelAspectRatio('6:5')
+                        ->required(fn(Forms\Get $get) => $get('metode_setor') === 'Transfer'),
+                ]),
                 Forms\Components\Group::make([
                     Forms\Components\Group::make([
                         Forms\Components\Select::make('jemaah_id')
@@ -45,7 +60,7 @@ class SetoranJemaahResource extends Resource
                                 'nama_ktp',
                             )
                             ->afterStateUpdated(
-                                fn(Set $set) => $set('paket_id', null)
+                                fn(Forms\Set $set) => $set('paket_id', null)
                             )
                             ->live()
                             ->searchable()
@@ -54,9 +69,9 @@ class SetoranJemaahResource extends Resource
                         Forms\Components\Select::make('paket_id')
                             ->label('Nama Paket')
                             ->required()
-                            ->disabled(fn(Get $get) => !$get('jemaah_id'))
+                            ->disabled(fn(Forms\Get $get) => !$get('jemaah_id'))
                             ->native(false)
-                            ->options(function (Get $get) {
+                            ->options(function (Forms\Get $get) {
                                 $jemaahId = $get('jemaah_id');
 
                                 if (!$jemaahId) {
@@ -77,11 +92,11 @@ class SetoranJemaahResource extends Resource
                             })
                             ->helperText('Pilih terlebih dahulu nama jemaah'),
                     ])
-                        ->relationship('jemaahPaket'),
-                    Forms\Components\Textarea::make('keterangan')
-                        ->label('Keterangan')
-                        ->rows(3)
-                        ->required(),
+                    ->relationship('jemaahPaket')
+                    ->dehydrated(true),
+                    Forms\Components\Textarea::make('catatan')
+                        ->label('Catatan')
+                        ->rows(3),
                     Forms\Components\TextInput::make('nominal')
                         ->prefix('IDR')
                         ->mask(
@@ -99,6 +114,12 @@ class SetoranJemaahResource extends Resource
                         ->default(now())
                         ->native(false)
                         ->required(),
+                    Forms\Components\Radio::make('status_setoran')
+                        ->label('Status Setoran')
+                        ->default('Terverifikasi')
+                        ->options(StatusSetoran::class)
+                        ->inline()
+                        ->inlineLabel(false)
                 ])
             ]);
     }
@@ -137,6 +158,7 @@ class SetoranJemaahResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('updated_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
