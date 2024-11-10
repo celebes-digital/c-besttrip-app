@@ -40,7 +40,7 @@ class SetoranJemaahResource extends Resource
                             'Transfer'  => 'heroicon-o-credit-card',
                         ])
                         ->live()
-                        ->default('Tunai')
+                        ->default('Transfer')
                         ->inline()
                         ->required(),
                     Forms\Components\FileUpload::make('bukti_setor')
