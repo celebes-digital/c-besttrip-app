@@ -3,10 +3,15 @@
 namespace App\Models;
 
 use App\Enums\StatusSetoran;
-use Illuminate\Database\Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Observers\SetoranObserver;
 
-class SetoranJemaah extends Eloquent\Model
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+
+#[ObservedBy([SetoranObserver::class])]
+class SetoranJemaah extends Model
 {
     use SoftDeletes;
 
@@ -20,25 +25,25 @@ class SetoranJemaah extends Eloquent\Model
         'status_setoran',
         'bukti_setor',
         'catatan'
-    ];
+    ];  
 
     protected $casts = [
         'waktu_setor'       => 'datetime',
         'status_setoran'    => StatusSetoran::class,
     ];
 
-    public function jemaahPaket(): Eloquent\Relations\BelongsTo
+    public function jemaahPaket(): Relations\BelongsTo
     {
         return $this->belongsTo(JemaahPaket::class, 'jemaah_paket_id', 'id');
     }
 
-    public function jemaah(): Eloquent\Relations\HasOneThrough
+    public function jemaah(): Relations\BelongsTo
     {
-        return $this->hasOneThrough(Jemaah::class, JemaahPaket::class);
+        return $this->belongsTo(Jemaah::class, 'jemaah_paket_id', 'id');
     }
 
-    public function paket(): Eloquent\Relations\HasOneThrough
+    public function paket(): Relations\BelongsTo
     {
-        return $this->hasOneThrough(Paket::class, JemaahPaket::class);
+        return $this->belongsTo(Paket::class, 'jemaah_paket_id', 'id');
     }
 }
