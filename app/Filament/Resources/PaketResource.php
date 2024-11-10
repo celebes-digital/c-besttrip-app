@@ -36,6 +36,13 @@ class PaketResource extends Resource
                         Forms\Components\FileUpload::make('foto')
                             ->image()
                             ->imageEditor()
+                            ->imageEditorAspectRatios([
+                                '16:9',
+                            ])
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('16:9')
+                            ->imageResizeTargetWidth('1920')
+                            ->imageResizeTargetHeight('1080')
                             ->directory('paket/foto')
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('nama_paket')
