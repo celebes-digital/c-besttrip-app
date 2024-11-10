@@ -23,8 +23,6 @@ class SetoranObserver
         $jemaahPaket = JemaahPaket::where('id', $setoranJemaah->jemaah_paket_id)->update([
             'status_pendaftaran' => $statusPendaftaran,
         ]);
-
-        dd($jemaahPaket);
     }
 
     /**

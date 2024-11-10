@@ -4,11 +4,16 @@ namespace App\Livewire\Forms;
 
 use App\Models\Paket;
 use Carbon\Carbon;
+use Filament\Actions\Action;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Forms;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class PilihPaket extends Component implements Forms\Contracts\HasForms
+class PilihPaket extends Component implements Forms\Contracts\HasForms, HasActions
 {
+    use InteractsWithActions;
     use Forms\Concerns\InteractsWithForms;
 
     public $dataPaket   = [];
@@ -60,6 +65,30 @@ class PilihPaket extends Component implements Forms\Contracts\HasForms
             ])
             ->columns(3)
             ->statePath('dataFilter');
+    }
+
+    public function viewAction(): Action
+    {
+        return Action::make('view')
+            ->label('Detail Paket')
+            ->button()
+            ->outlined()
+            ->modal()
+            ->action(fn(Paket $record) => $record->advance())
+            ->modalContent(
+                function (array $arguments): View {
+                    $paket = Paket::find($arguments['paket']);
+
+                    return view(
+                        'components.detail-paket',
+                        ['data' => $paket]
+                    );
+                }
+            )
+            ->extraAttributes([
+                'class' => 'w-full h-full',
+            ])
+            ->action(fn() => $this->post->delete());
     }
 
     public function updateDataPaketId(int $paketId): void
