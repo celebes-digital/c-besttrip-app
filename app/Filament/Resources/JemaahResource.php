@@ -310,6 +310,7 @@ class JemaahResource extends Resource
                     ->label('Foto KTP')
                     ->image()
                     ->directory('foto/ktp')
+                    ->imageEditor()
                     ->required(),
                 Forms\Components\FileUpload::make('foto_paspor')
                     ->label('Foto Paspor')
@@ -336,9 +337,9 @@ class JemaahResource extends Resource
                             $hargaPaket = Paket::find($get('paket_id'));
 
                             return [
-                                '5000000'               => 'Rp5.000.000',
-                                '10000000'              => 'Rp10.000.000',
-                                $hargaPaket?->harga ?? 0     => 'Rp' . $hargaPaket?->harga ?? 0 . ' (Lunas)',
+                                '5000000'               => 'IDR 5.000.000',
+                                '10000000'              => 'IDR 10.000.000',
+                                $hargaPaket?->harga ?? 0=> h_format_currency($hargaPaket?->harga ?? 0) . ' (Lunas)',
                             ];
                         }
                     )

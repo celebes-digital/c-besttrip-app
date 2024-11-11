@@ -43,7 +43,7 @@ class PaketResource extends Resource
                             ->imageCropAspectRatio('16:9')
                             ->imageResizeTargetWidth('1920')
                             ->imageResizeTargetHeight('1080')
-                            ->directory('paket/foto')
+                            ->directory('foto/paket')
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('nama_paket')
                             ->required()

@@ -46,7 +46,7 @@ class SetoranJemaahResource extends Resource
                     Forms\Components\FileUpload::make('bukti_setor')
                         ->label('')
                         ->image()
-                        ->directory('poto/setoran')
+                        ->directory('foto/bukti-setor')
                         ->panelAspectRatio('6:5')
                         ->required(fn(Forms\Get $get) => $get('metode_setor') === 'Transfer'),
                 ]),
