@@ -40,12 +40,12 @@ class StatsOverviewWidget extends BaseWidget
 
     private function getTotalSetoran(): string
     {
-        return $this->formatCurrency(SetoranJemaah::where('status_setoran', 1)->sum('nominal'));
+        return $this->formatCurrency(SetoranJemaah::where('status_setoran', 'Terverifikasi')->sum('nominal'));
     }
 
     private function getSetoranThisMonth(): string
     {
-        return $this->formatCurrency(SetoranJemaah::where('status_setoran', 1)->whereMonth('waktu_setor', now()->month)->sum('nominal'));
+        return $this->formatCurrency(SetoranJemaah::where('status_setoran', 'Terverifikasi')->whereMonth('waktu_setor', now()->month)->sum('nominal'));
     }
 
     private function getKoutaBulanIni(): string
