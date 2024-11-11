@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/src/output.css" rel="stylesheet" />
     <title>C-Besttrip</title>
+
+    {{-- Font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
@@ -16,7 +23,7 @@
         <div class="relative flex items-center justify-between h-12">
           <!-- Logo -->
           <div class="flex items-center gap-2">
-            <img class="h-16 w-16" src="{{ url('/img/public/logo1.png') }}" alt="Logo" />
+            <img class="h-16 w-16" src="{{ url('/img/public/logo.png') }}" alt="Logo" />
           </div>
 
           <!-- Navbar Menu (Centered) -->
@@ -29,7 +36,7 @@
 
           <!-- Button Daftar Sekarang-->
           <div class="hidden md:block">
-            <a href="https://besttrip.celebesdigital.id/daftar" class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full text-xs text-white">Daftar sekarang</a>
+            <a href="{{ url('/daftar') }}" class="bg-rose-600 hover:bg-rose-700 px-6 py-2 rounded-full text-xs text-white">Daftar sekarang</a>
           </div>
           <div class="md:hidden">
             <button id="hamburger-icon" class="text-white focus:outline-none">
@@ -48,7 +55,7 @@
       <a href="#" class="block hover:bg-blue-500">Tentang</a>
       <a href="#" class="block hover:bg-blue-500">Peket</a>
       <a href="#" class="block hover:bg-blue-500">Kontak</a>
-      <a href="https://besttrip.celebesdigital.id/daftar" class="block text-center bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg">Daftar Sekarang</a>
+      <a href="{{ url('/daftar') }}" class="block text-center bg-rose-600 hover:bg-rose-700 px-6 py-2 rounded-lg">Daftar Sekarang</a>
     </div>
 
     <!-- hero section -->
@@ -57,7 +64,7 @@
       <div class="relative z-10 flex flex-col justify-center items-center w-full h-full text-white text-center px-4">
         <h1 class="text-4xl mt-6">Temukan Kedamaian dalam Ibadah <br />Umrah bersama Kami</h1>
         <p class="mt-6 text-xl font-thin">Dilengkapi Fasilitas Nyaman dan Pendampingan Penuh, Wujudkan Perjalanan Ibadah Anda Bersama Kami</p>
-        <a href="https://besttrip.celebesdigital.id/daftar" class="mt-6 px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full">Daftar sekarang</a>
+        <a href="{{ url('/daftar') }}" class="mt-6 px-6 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-full">Daftar sekarang</a>
       </div>
     </section>
 
@@ -108,7 +115,7 @@
       <div class="container mx-auto w-full max-w-screen-lg flex flex-col md:flex-row justify-between bg-white p-6 space-y-6 md:space-y-0">
         <!-- Harga Terjangkau -->
         <div class="flex">
-          <img src="{{ url('img/public/public/money.png') }}" alt="Icon Harga Terjangkau" class="w-16 h-16" />
+          <img src="{{ url('img/public/money.png') }}" alt="Icon Harga Terjangkau" class="w-16 h-16" />
           <div>
             <h3 class="font-bold text-lg">Harga Terjangkau</h3>
             <p class="text-gray-500 text-sm">Memberikan harga terbaik dan murah</p>
@@ -117,7 +124,7 @@
 
         <!-- Travel Terpercaya -->
         <div class="flex">
-          <img src="{{ url('img/public/public/achieve.png') }}" alt="Icon Travel Terpercaya" class="w-16 h-16" />
+          <img src="{{ url('img/public/achieve.png') }}" alt="Icon Travel Terpercaya" class="w-16 h-16" />
           <div>
             <h3 class="font-bold text-lg">Travel Terpercaya</h3>
             <p class="text-gray-500 text-sm">Telah melayani 10.000 orang</p>
@@ -126,7 +133,7 @@
 
         <!-- Aman & Nyaman -->
         <div class="flex">
-          <img src="{{ url('img/public/public/protect.png') }}" alt="Icon Aman dan Nyaman" class="w-16 h-16" />
+          <img src="{{ url('img/public/protect.png') }}" alt="Icon Aman dan Nyaman" class="w-16 h-16" />
           <div>
             <h3 class="font-bold text-lg">Aman & Nyaman</h3>
             <p class="text-gray-500 text-sm">Memberikan keamanan dalam perjalanan anda</p>
@@ -206,7 +213,7 @@
               <div class="flex justify-between items-center mt-4">
                 <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
                 <div class="text-right">
-                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-red-700">20 Juta</span></p>
+                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-rose-700">20 Juta</span></p>
                   <p class="text-xl font-bold">18 Juta</p>
                 </div>
               </div>
@@ -505,7 +512,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-sky-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -517,7 +524,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-sky-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -529,7 +536,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-sky-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -541,7 +548,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-sky-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -553,7 +560,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-red-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -565,7 +572,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-red-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -577,7 +584,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-red-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -589,7 +596,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-red-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -601,7 +608,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-red-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -613,7 +620,7 @@
               <img src="{{ url('img/public/jamaah.jpg') }}" alt="" class="transition-all duration-300 rounded-lg hover:scale-110 hover:rounded-lg" />
             </div>
             <div class="px-5 py-6 border-t-4 border-red-800">
-              <h3 class="mt-2 text-2xl font-serif">Jamaah Platinum Oktober 2024</h3>
+              <h3 class="mt-2 text-2xl">Jamaah Platinum Oktober 2024</h3>
               <div class="flex justify-between">
                 <p class="text-zinc-400">bestTrip Travel</p>
                 <img src="{{ url('img/public/logo1.png') }}" alt="" class="h-16 w-16" />
@@ -704,7 +711,7 @@
     </section>
 
     <!-- <div class="container mx-auto w-full">
-			<div class="text-center text-5xl font-semibold font-serif mt-5 mb-5">
+			<div class="text-center text-5xl font-semibold mt-5 mb-5">
 				<p>JAMAAH KAMI</p>
 			</div>
 			<div class="card-foto w-full overflow-x-auto">
