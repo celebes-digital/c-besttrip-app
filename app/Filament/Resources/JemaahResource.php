@@ -223,20 +223,33 @@ class JemaahResource extends Resource
                     ->label('Alamat Lengkap')
                     ->helperText('Alamat lengkap sesuai KTP')
                     ->required()
-                    ->columnSpan(2)
+                    ->columnSpan([
+                        'sm' => 2
+                    ])
                     ->maxLength(100),
-                Forms\Components\TextInput::make('rt')
-                    ->label('RT')
-                    ->mask('999')
-                    ->helperText('Contoh: 003')
-                    ->length(3)
-                    ->required(),
-                Forms\Components\TextInput::make('rw')
-                    ->label('RW')
-                    ->mask('999')
-                    ->helperText('Contoh: 003')
-                    ->length(3)
-                    ->required(),
+                Forms\Components\Group::make([
+                    Forms\Components\TextInput::make('rt')
+                        ->label('RT')
+                        ->mask('999')
+                        ->helperText('Contoh: 003')
+                        ->length(3)
+                        ->required(),
+                    Forms\Components\TextInput::make('rw')
+                        ->label('RW')
+                        ->mask('999')
+                        ->helperText('Contoh: 003')
+                        ->length(3)
+                        ->required(),
+                ])
+                ->columns([
+                    'default' => 2,
+                    'sm' => 2,
+                    'md' => 2,
+                ])
+                ->columnSpan([
+                    'sm' => 2,
+                    'md' => 2,
+                ]),
                 Forms\Components\TextInput::make('provinsi')
                     ->required()
                     ->maxLength(50),
@@ -250,7 +263,10 @@ class JemaahResource extends Resource
                     ->required()
                     ->maxLength(50),
             ])
-            ->columns(4);
+            ->columns([
+                'md' => 2,
+                'lg' => 4,
+            ]);
     }
 
     public static function getPasporFormField(): Forms\Components\Fieldset
