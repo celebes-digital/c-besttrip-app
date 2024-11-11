@@ -62,28 +62,58 @@ class JemaahResource extends Resource
                     ->grow(false)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->grow()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
+                    ->searchable()
+                    ->placeholder('No email')
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
+                Tables\Columns\TextColumn::make('kelamin')
+                    ->label('Jenis Kelamin')
+                    ->formatStateUsing(function ($state) {
+                        return match ($state) {
+                            'l' => 'Laki-laki',
+                            'p' => 'Perempuan',
+                            default => $state,
+                        };
+                    }),
+                Tables\Columns\TextColumn::make('tanggal_lahir')
+                    ->label('Tanggal Lahir')
+                    ->formatStateUsing(fn($state) => $state->format('d F Y')),
+                Tables\Columns\TextColumn::make('alamat')
+                    ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('status_nikah')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->formatStateUsing(function ($state) {
+                        return match ($state) {
+                            0 => 'Belum Menikah',
+                            1 => 'Menikah',
+                            2 => 'Cerai',
+                            default => $state,
+                        };
+                    }),
+                // Tables\Columns\TextColumn::make('deleted_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('updated_at', 'desc')
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\TrashedFilter::make()
+                    ->native(false),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->color('warning'),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -104,7 +134,7 @@ class JemaahResource extends Resource
         return [
             'index'     => Pages\ListJemaahs::route('/'),
             'create'    => Pages\CreateJemaah::route('/create'),
-            'view'      => Pages\ViewJemaah::route('/{record}'),
+            // 'view'      => Pages\ViewJemaah::route('/{record}'),
             'edit'      => Pages\EditJemaah::route('/{record}/edit'),
         ];
     }
