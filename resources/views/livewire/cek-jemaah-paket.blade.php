@@ -15,7 +15,7 @@
                     <p class="text-base font-medium">NIK</p>
                 </div>
                 <div class="w-3/4 border px-2 py-1 rounded-lg bg-white border-slate-100">
-                    <p class="text-base font-medium">5009 **** **** **32</p>
+                    <p class="text-base font-medium">{{ $data->jemaah->nik ? substr($data->jemaah->nik, 0, 4) . ' **** **** **' . substr($data->jemaah->nik, -2) : 'Nik belum didaftarakan' }}</p>
                 </div>
             </div>
             <div class="flex items-center">
@@ -23,7 +23,7 @@
                     <p class="text-base font-medium">Nomor Whatsapp</p>
                 </div>
                 <div class="w-3/4 border px-2 py-1 rounded-lg bg-white border-slate-100">
-                    <p class="text-base font-medium">+62 *** **** 3546</p>
+                    <p class="text-base font-medium">{{ $data->jemaah->no_hp ? '+62 ' . substr($data->jemaah->no_hp, 1, 3) . ' **** ' . substr($data->jemaah->no_hp, -4) : '-' }}</p>
                 </div>
             </div>
         </div>

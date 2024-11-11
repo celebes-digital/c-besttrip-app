@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\PaketResource\RelationManagers;
 
+use App\Models\Jemaah;
+use App\Models\JemaahPaket;
+
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JemaahsRelationManager extends RelationManager
@@ -66,6 +68,20 @@ class JemaahsRelationManager extends RelationManager
                     ),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->iconButton()
+                    ->tooltip('Detail Setoran')
+                    ->action(fn (Jemaah $record) => $record->advance())
+                    ->modalContent(
+                        function (Jemaah $record) {
+                            $setoran = $record->setorans;
+
+                            return view(
+                                'components.detail-setoran',
+                                ['data' => $setoran]
+                            );
+                        }
+                    ),
                 Tables\Actions\DeleteAction::make()
                     ->iconButton()
                     ->tooltip('Hapus'),
