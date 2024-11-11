@@ -11,11 +11,12 @@ use Filament\Resources\Resource;
 use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Tabs;
-use Filament\Forms\Form;
+
 use Filament\Tables;
 use Filament\Tables\Table;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JemaahResource extends Resource
@@ -108,8 +109,12 @@ class JemaahResource extends Resource
                 Tables\Filters\TrashedFilter::make()
                     ->native(false),
             ])
+            ->recordUrl(
+                fn(Model $record): string => JemaahResource::getUrl('view', ['record' => $record]),
+            )
             ->actions([
-                // Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make()
+                //     ->iconButton(),
                 Tables\Actions\EditAction::make()
                     ->color('warning'),
                 Tables\Actions\DeleteAction::make()
@@ -134,7 +139,7 @@ class JemaahResource extends Resource
         return [
             'index'     => Pages\ListJemaahs::route('/'),
             'create'    => Pages\CreateJemaah::route('/create'),
-            // 'view'      => Pages\ViewJemaah::route('/{record}'),
+            'view'      => Pages\ViewJemaah::route('/{record}'),
             'edit'      => Pages\EditJemaah::route('/{record}/edit'),
         ];
     }
