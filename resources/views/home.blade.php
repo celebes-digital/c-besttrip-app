@@ -62,8 +62,8 @@
     <section class="relative w-full lg:h-screen h-[500px] bg-cover bg-center" style="background-image: url('{{ url('/img/public/hero.jpg')}}' )">
       <div class="absolute inset-0 bg-black bg-opacity-60"></div>
       <div class="relative z-10 flex flex-col justify-center items-center w-full h-full text-white text-center px-4">
-        <h1 class="text-4xl mt-6">Temukan Kedamaian dalam Ibadah <br />Umrah bersama Kami</h1>
-        <p class="mt-6 text-xl font-thin">Dilengkapi Fasilitas Nyaman dan Pendampingan Penuh, Wujudkan Perjalanan Ibadah Anda Bersama Kami</p>
+        <h1 class="text-4xl mt-6 font-semibold">Temukan Kedamaian dalam Ibadah <br />Umrah bersama Kami</h1>
+        <p class="mt-6 text-xl font-medium max-w-xl">Dilengkapi Fasilitas Nyaman dan Pendampingan Penuh, Wujudkan Perjalanan Ibadah Anda Bersama Kami</p>
         <a href="{{ url('/daftar') }}" class="mt-6 px-6 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-full">Daftar sekarang</a>
       </div>
     </section>
@@ -102,8 +102,8 @@
 
           <!-- Deskripsi Teks -->
           <div class="text-center lg:text-left px-4 lg:px-8 max-w-2xl">
-            <p class="text-lg text-gray-600 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus totam cupiditate, error numquam dignissimos labore iure aspernatur esse magni sequi, incidunt pariatur eaque deserunt dolore culpa autem aut fugiat maxime.
+            <p class="text-lg text-gray-600 leading-relaxed text-center lg:text-justify">
+                Kami adalah agen perjalanan umrah yang berkomitmen untuk memberikan pengalaman ibadah yang nyaman dan berkesan. Dengan pengalaman lebih dari 5 tahun, kami telah melayani lebih dari 10.000 jamaah dengan panduan ibadah 24/7. Kami menawarkan paket umrah dengan harga terjangkau, fasilitas terbaik, dan pendampingan penuh selama perjalanan. Bergabunglah dengan kami untuk perjalanan ibadah yang aman dan nyaman.
             </p>
           </div>
         </div>
@@ -148,353 +148,87 @@
         <h2 class="text-3xl font-bold mb-8">PAKET YANG TERSEDIA</h2>
 
         <div class="overflow-x-auto px-4">
-          <div class="flex space-x-4 whitespace-nowrap">
-            <!-- Card 1 -->
-            <div class="w-fit bg-white shadow-lg rounded-lg p-10 border inline-block">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="text-xl font-semibold">Umrah</h3>
-                  <p class="text-sm mb-2">tgl / bln / tahun</p>
-                  <div class="flex justify-center space-x-2 mb-2">
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">10 hari</span>
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">direct</span>
-                  </div>
-                </div>
-                <img src="{{ url('img/public/image.png') }}" alt="Image description" class="w-36 h-24 ml-4" />
-              </div>
-              <hr />
-              <p class="flex space-x-2 text-sm mt-3 mb-3">
-                <span>Makassar</span>
-                <img src="{{ url('img/public/plane.png') }}" alt="Plane icon" class="w-4 h-4" />
-                <span>Jeddah</span>
-              </p>
-              <hr />
-              <div class="flex gap-4 mt-3 mb-3">
-                <div class="text-left">
-                  <p class="font-semibold">Include :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Bus</li>
-                    <li>Makan</li>
-                    <li>Hotel</li>
-                    <li>Koper</li>
-                    <li>Visa</li>
-                    <li>Tour Guide</li>
-                  </ul>
-                </div>
-                <div class="text-left">
-                  <p class="font-semibold">Exclude :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Tiket domestik</li>
-                    <li>Bagasi berlebih (overload)</li>
-                  </ul>
-                </div>
-              </div>
-              <hr />
-              <div class="mt-3 mb-3 text-left">
-                <p class="text-sm text-gray-600">MEKKAH</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-                <p class="text-sm text-gray-600">MEDINA</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between items-center mt-4">
-                <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
-                <div class="text-right">
-                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-rose-700">20 Juta</span></p>
-                  <p class="text-xl font-bold">18 Juta</p>
-                </div>
-              </div>
-            </div>
+          <div class="flex space-x-4 whitespace-nowrap pb-8">
 
-            <!-- card 2 -->
-            <div class="w-fit bg-white shadow-lg rounded-lg p-10 border inline-block">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="text-xl font-semibold">Umrah</h3>
-                  <p class="text-sm mb-2">tgl / bln / tahun</p>
-                  <div class="flex justify-center space-x-2 mb-2">
-                    <span class="rounded-full border border-sky-100 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">10 hari</span>
-                    <span class="rounded-full border border-sky-100 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">direct</span>
+            @foreach ($paket as $item)
+              <!-- Card 1 -->
+              <div class="w-fit bg-white shadow-lg rounded-lg p-10 border inline-block">
+                <div class="flex justify-between items-center mb-4">
+                  <div>
+                    <h3 class="text-xl font-semibold">
+                      {{-- {{ $item['nama_paket'] }} --}}
+                      Paket Umrah
+                    </h3>
+                    <p class="text-sm mb-2">{{ $item['tgl_paket'] }}</p>
+                    <div class="flex justify-center space-x-2 mb-2">
+                      <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">10 hari</span>
+                      <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">direct</span>
+                    </div>
+                  </div>
+                  <img src="{{ url('img/public/image.png') }}" alt="Image description" class="w-36 h-24 ml-4 rounded-md" />
+                </div>
+                <hr />
+                <p class="flex space-x-2 text-sm mt-3 mb-3">
+                  <span>Makassar</span>
+                  <img src="{{ url('img/public/plane.png') }}" alt="Plane icon" class="w-4 h-4" />
+                  <span>Jeddah</span>
+                </p>
+                <hr />
+                <div class="flex gap-4 mt-3 mb-3">
+                  <div class="text-left">
+                    <p class="font-semibold">Include :</p>
+                    <ul class="list-disc list-inside text-sm">
+                      <li>Bus</li>
+                      <li>Makan</li>
+                      <li>Hotel</li>
+                      <li>Koper</li>
+                      <li>Visa</li>
+                      <li>Tour Guide</li>
+                    </ul>
+                  </div>
+                  <div class="text-left">
+                    <p class="font-semibold">Exclude :</p>
+                    <ul class="list-disc list-inside text-sm">
+                      <li>Tiket domestik</li>
+                      <li>Bagasi berlebih (overload)</li>
+                    </ul>
                   </div>
                 </div>
-                <img src="{{ url('img/public/image.png') }}" alt="Image description" class="w-36 h-24 ml-4" />
-              </div>
-              <hr />
-              <p class="flex space-x-2 text-sm mt-3 mb-3">
-                <span>Makassar</span>
-                <img src="{{ url('img/public/plane.png') }}" alt="Plane icon" class="w-4 h-4" />
-                <span>Jeddah</span>
-              </p>
-              <hr />
-              <div class="flex gap-4 mt-3 mb-3">
-                <div class="text-left">
-                  <p class="font-semibold">Include :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Bus</li>
-                    <li>Makan</li>
-                    <li>Hotel</li>
-                    <li>Koper</li>
-                    <li>Visa</li>
-                    <li>Tour Guide</li>
-                  </ul>
-                </div>
-                <div class="text-left">
-                  <p class="font-semibold">Exclude :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Tiket domestik</li>
-                    <li>Bagasi berlebih (overload)</li>
-                  </ul>
-                </div>
-              </div>
-              <hr />
-              <div class="mt-3 mb-3 text-left">
-                <p class="text-sm text-gray-600">MEKKAH</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-                <p class="text-sm text-gray-600">MEDINA</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between items-center mt-4">
-                <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
-                <div class="text-right">
-                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-red-700">20 Juta</span></p>
-                  <p class="text-xl font-bold">18 Juta</p>
-                </div>
-              </div>
-            </div>
-            <!-- card 3 -->
-            <div class="w-fit bg-white shadow-lg rounded-lg p-10 border inline-block">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="text-xl font-semibold">Umrah</h3>
-                  <p class="text-sm mb-2">tgl / bln / tahun</p>
-                  <div class="flex justify-center space-x-2 mb-2">
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">10 hari</span>
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">direct</span>
+                <hr />
+                <div class="mt-3 mb-3 text-left">
+                  <p class="text-sm text-gray-600">MEKKAH</p>
+                  <div class="flex items-center space-x-1 mb-2">
+                    <span class="text-sm">Hotel</span>
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                  </div>
+                  <p class="text-sm text-gray-600">MEDINA</p>
+                  <div class="flex items-center space-x-1 mb-2">
+                    <span class="text-sm">Hotel</span>
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
+                    <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
                   </div>
                 </div>
-                <img src="{{ url('img/public/image.png') }}" alt="Image description" class="w-36 h-24 ml-4" />
-              </div>
-              <hr />
-              <p class="flex space-x-2 text-sm mt-3 mb-3">
-                <span>Makassar</span>
-                <img src="{{ url('img/public/plane.png') }}" alt="Plane icon" class="w-4 h-4" />
-                <span>Jeddah</span>
-              </p>
-              <hr />
-              <div class="flex gap-4 mt-3 mb-3">
-                <div class="text-left">
-                  <p class="font-semibold">Include :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Bus</li>
-                    <li>Makan</li>
-                    <li>Hotel</li>
-                    <li>Koper</li>
-                    <li>Visa</li>
-                    <li>Tour Guide</li>
-                  </ul>
-                </div>
-                <div class="text-left">
-                  <p class="font-semibold">Exclude :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Tiket domestik</li>
-                    <li>Bagasi berlebih (overload)</li>
-                  </ul>
-                </div>
-              </div>
-              <hr />
-              <div class="mt-3 mb-3 text-left">
-                <p class="text-sm text-gray-600">MEKKAH</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-                <p class="text-sm text-gray-600">MEDINA</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between items-center mt-4">
-                <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
-                <div class="text-right">
-                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-red-700">20 Juta</span></p>
-                  <p class="text-xl font-bold">18 Juta</p>
-                </div>
-              </div>
-            </div>
-            <!-- card 4 -->
-            <div class="w-fit bg-white shadow-lg rounded-lg p-10 border inline-block">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="text-xl font-semibold">Umrah</h3>
-                  <p class="text-sm mb-2">tgl / bln / tahun</p>
-                  <div class="flex justify-center space-x-2 mb-2">
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">10 hari</span>
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">direct</span>
+                <hr />
+                <div class="flex justify-between items-center mt-4">
+                  <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
+                  <div class="text-right">
+                    <p class="text-sm text-gray-500">
+                      <span class="line-through text-rose-700">
+                        {{ h_format_currency($item['harga'] + 3000000) }}
+                      </span>
+                    </p>
+                    <p class="text-xl font-bold">{{ h_format_currency($item['harga']) }}</p>
                   </div>
                 </div>
-                <img src="{{ url('img/public/image.png') }}" alt="Image description" class="w-36 h-24 ml-4" />
-              </div>
-              <hr />
-              <p class="flex space-x-2 text-sm mt-3 mb-3">
-                <span>Makassar</span>
-                <img src="{{ url('img/public/plane.png') }}" alt="Plane icon" class="w-4 h-4" />
-                <span>Jeddah</span>
-              </p>
-              <hr />
-              <div class="flex gap-4 mt-3 mb-3">
-                <div class="text-left">
-                  <p class="font-semibold">Include :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Bus</li>
-                    <li>Makan</li>
-                    <li>Hotel</li>
-                    <li>Koper</li>
-                    <li>Visa</li>
-                    <li>Tour Guide</li>
-                  </ul>
-                </div>
-                <div class="text-left">
-                  <p class="font-semibold">Exclude :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Tiket domestik</li>
-                    <li>Bagasi berlebih (overload)</li>
-                  </ul>
-                </div>
-              </div>
-              <hr />
-              <div class="mt-3 mb-3 text-left">
-                <p class="text-sm text-gray-600">MEKKAH</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-                <p class="text-sm text-gray-600">MEDINA</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between items-center mt-4">
-                <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
-                <div class="text-right">
-                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-red-700">20 Juta</span></p>
-                  <p class="text-xl font-bold">18 Juta</p>
-                </div>
-              </div>
-            </div>
-            <!-- card 5 -->
-            <div class="w-fit bg-white shadow-lg rounded-lg p-10 border inline-block">
-              <div class="flex justify-between items-center mb-4">
-                <div>
-                  <h3 class="text-xl font-semibold">Umrah</h3>
-                  <p class="text-sm mb-2">tgl / bln / tahun</p>
-                  <div class="flex justify-center space-x-2 mb-2">
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">10 hari</span>
-                    <span class="rounded-full border border-sky-100 bg-sky-50 px-2 py-0.5 dark:text-sky-300 dark:border-sky-500/15 dark:bg-sky-500/10">direct</span>
-                  </div>
-                </div>
-                <img src="{{ url('img/public/image.png') }}" alt="Image description" class="w-36 h-24 ml-4" />
-              </div>
-              <hr />
-              <p class="flex space-x-2 text-sm mt-3 mb-3">
-                <span>Makassar</span>
-                <img src="{{ url('img/public/plane.png') }}" alt="Plane icon" class="w-4 h-4" />
-                <span>Jeddah</span>
-              </p>
-              <hr />
-              <div class="flex gap-4 mt-3 mb-3">
-                <div class="text-left">
-                  <p class="font-semibold">Include :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Bus</li>
-                    <li>Makan</li>
-                    <li>Hotel</li>
-                    <li>Koper</li>
-                    <li>Visa</li>
-                    <li>Tour Guide</li>
-                  </ul>
-                </div>
-                <div class="text-left">
-                  <p class="font-semibold">Exclude :</p>
-                  <ul class="list-disc list-inside text-sm">
-                    <li>Tiket domestik</li>
-                    <li>Bagasi berlebih (overload)</li>
-                  </ul>
-                </div>
-              </div>
-              <hr />
-              <div class="mt-3 mb-3 text-left">
-                <p class="text-sm text-gray-600">MEKKAH</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-                <p class="text-sm text-gray-600">MEDINA</p>
-                <div class="flex items-center space-x-1 mb-2">
-                  <span class="text-sm">Hotel</span>
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                  <img src="{{ url('img/public/star.png') }}" alt="Star icon" class="w-4 h-4" />
-                </div>
-              </div>
-              <hr />
-              <div class="flex justify-between items-center mt-4">
-                <button class="bg-blue-600 text-white px-4 py-1 rounded-md text-sm hover:bg-blue-800">SEAT TERBATAS</button>
-                <div class="text-right">
-                  <p class="text-sm text-gray-500">Harga mulai: <span class="line-through text-red-700">20 Juta</span></p>
-                  <p class="text-xl font-bold">18 Juta</p>
-                </div>
-              </div>
-            </div>
+              </div>              
+            @endforeach
+            
           </div>
         </div>
       </div>
@@ -505,7 +239,7 @@
       <div class="text-center text-3xl font-bold mt-5 mb-5">
         <h2 class="text-3xl font-bold mb-8">JAMAAH KAMI</h2>
       </div>
-      <div class="card-foto overflow-x-auto">
+      <div class="card-foto overflow-x-auto pb-8">
         <div class="flex gap-3 w-fit">
           <div class="rounded-lg border-8 border-sky-800 w-96">
             <div class="overflow-hidden">
@@ -636,7 +370,7 @@
       <div class="text-center text-lg mt-10 mb-3">
         <h2 class="text-3xl font-bold mb-8">TESTIMONI JAMAAH</h2>
       </div>
-      <div class="card-tetimoni overflow-x-auto">
+      <div class="card-tetimoni overflow-x-auto pb-8">
         <div class="flex gap-3 w-fit">
           <div class="bg-sky-800 w-72 h-97 items-center rounded-lg p-5">
             <img src="{{ url('img/public/IMG_5371.jpeg') }}" alt="" class="w-fit h-full shadow-2xl" />
@@ -840,7 +574,7 @@
 			</div>
 			</div> -->
 
-    <footer class="bg-sky-800 text-gray-900 py-8">
+    <footer class="bg-gradient-to-br from-sky-500 to-sky-600  text-gray-900 py-8">
       <div class="container mx-auto px-4 md:px-0 flex flex-col md:flex-row justify-around items-start">
         <!-- Contact Information -->
         <div class="mb-6 md:w-1/3">

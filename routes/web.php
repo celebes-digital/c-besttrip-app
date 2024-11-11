@@ -2,11 +2,13 @@
 
 use App\Livewire\CekJemaahPaket;
 use App\Livewire\FormPendaftaranPage;
-
+use App\Models\Paket;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        'paket' => Paket::where('tgl_paket', '>=', now())->where('is_active', true)->get()
+    ]);
 });
 
 Route::get('/daftar', FormPendaftaranPage::class)->name('daftar');
