@@ -15,7 +15,6 @@ class JemaahsRelationManager extends RelationManager
 {
     protected static string $relationship   = 'jemaahs';
     protected static ?string $title         = 'Daftar Jemaah yang Terdaftar';
-    
 
     public function table(Tables\Table $table): Tables\Table
     {
@@ -34,6 +33,16 @@ class JemaahsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('tgl_pendaftaran')
                     ->label('Tanggal Pendaftaran')
                     ->formatStateUsing(fn ($state) => $state->format('d F Y'))
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('setorans_sum_nominal')
+                    ->label('Total Setoran')
+                    ->sum(
+                        [
+                            'setorans' => fn(Builder $query) => $query->where('status_setoran', 'Terverifikasi')
+                        ], 'nominal'
+                    )
+                    ->formatStateUsing(fn ($state) => h_format_currency($state))
+                    ->placeholder('IDR 0')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status_pendaftaran')
                     ->badge(),
@@ -57,7 +66,9 @@ class JemaahsRelationManager extends RelationManager
                     ),
             ])
             ->actions([
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\RestoreAction::make()
                         ->color('success'),
