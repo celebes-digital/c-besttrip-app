@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Models\Jemaah;
 use App\Filament\Resources\JemaahResource\Pages;
 use App\Filament\Resources\JemaahResource\RelationManagers;
-
+use App\Models\Paket;
 use Filament\Resources\Resource;
 
 use Filament\Forms;
@@ -174,6 +174,9 @@ class JemaahResource extends Resource
                 Forms\Components\DatePicker::make('tanggal_lahir')
                     ->prefixIcon('heroicon-s-calendar')
                     ->displayFormat('d F Y')
+                    ->placeholder('Pilih tanggal')
+                    ->maxDate(now()->subMonths(6))
+                    ->closeOnDateSelection()
                     ->native(false)
                     ->required(),
                 Forms\Components\Select::make('kelamin')
@@ -211,6 +214,8 @@ class JemaahResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->helperText('Gunakan email yang aktif jika ada')
+                    ->hint('Opsional')
+                    ->hintColor('success')
                     ->maxLength(100),
             ]);
     }
@@ -276,17 +281,25 @@ class JemaahResource extends Resource
                 Forms\Components\TextInput::make('nama_paspor')
                     ->maxLength(100)
                     ->live(onBlur: true)
-                    ->columnSpan(2),
+                    ->columnSpan([
+                        'sm' => 2
+                    ]),
                 Forms\Components\TextInput::make('no_paspor')
                     ->label('Nomor Paspor')
                     ->required(fn(Get $get) => !empty($get('nama_paspor')))
                     ->maxLength(20),
                 Forms\Components\DatePicker::make('berlaku_paspor')
                     ->native(false)
+                    ->closeOnDateSelection()
+                    ->minDate(now())
+                    ->placeholder('Pilih tanggal')
                     ->required(fn(Get $get) => !empty($get('nama_paspor')))
                     ->displayFormat('d F Y'),
             ])
-            ->columns(4);
+            ->columns([
+                'sm' => 2,
+                'lg' => 4,
+            ]);
     }
 
     public static function getDokumenPendukungFormField(): Forms\Components\Fieldset
@@ -310,26 +323,29 @@ class JemaahResource extends Resource
     {
         return Forms\Components\Wizard\Step::make('Setoran Awal')
             ->schema([
-                Forms\Components\Split::make([
-                    Forms\Components\FileUpload::make('bukti_setor')
-                        ->label('Bukti Setoran Awal')
-                        ->required()
-                        ->image()
-                        ->directory('foto/bukti-setor'),
-                    Forms\Components\Select::make('nominal')
-                        ->label('Setoran Awal')
-                        ->required()
-                        ->options(
-                            function (Get $get) {
-                                return [
-                                    '5000000'               => 'Rp5.000.000',
-                                    '10000000'              => 'Rp10.000.000',
-                                    $get('harga_paket')     => 'Rp' . $get('harga_paket') . ' (Lunas)',
-                                ];
-                            }
-                        )
-                        ->native(false)
-                ])
+                Forms\Components\FileUpload::make('bukti_setor')
+                    ->label('Bukti Setoran Awal')
+                    ->required()
+                    ->image()
+                    ->directory('foto/bukti-setor'),
+                Forms\Components\Select::make('nominal')
+                    ->label('Setoran Awal')
+                    ->required()
+                    ->options(
+                        function (Get $get) {
+                            $hargaPaket = Paket::find($get('paket_id'));
+
+                            return [
+                                '5000000'               => 'Rp5.000.000',
+                                '10000000'              => 'Rp10.000.000',
+                                $get('harga_paket')     => 'Rp' . $hargaPaket->harga . ' (Lunas)',
+                            ];
+                        }
+                    )
+                    ->native(false)
+            ])
+            ->columns([
+                'md' => 2,
             ])
             ->icon('heroicon-o-banknotes')
             ->completedIcon('heroicon-o-document-check');
