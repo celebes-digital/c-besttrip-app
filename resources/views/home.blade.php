@@ -93,7 +93,7 @@
     <!-- about -->
     <section id="about" class="mx-auto py-5">
       <div class="container mx-auto w-full max-w-screen-lg p-5">
-        <h4 class="text-5xl font-bold mb-5 text-center">ABOUT</h4>
+        <h4 class="text-4xl mb-8 text-center" style="text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5)">ABOUT</h4>
         <div class="flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-10">
           <!-- Gambar -->
           <div class="flex-shrink-0 w-full lg:w-96 h-96 bg-gray-200 rounded-lg overflow-hidden shadow-md">
@@ -145,7 +145,7 @@
     <!-- paket -->
     <section id="paket" class="py-8">
       <div class="text-center container max-w-screen-lg mx-auto w-full">
-        <h2 class="text-3xl font-bold mb-8">PAKET YANG TERSEDIA</h2>
+        <h2 class="text-4xl mb-8" style="text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5)">PAKET YANG TERSEDIA</h2>
 
         <div class="overflow-x-auto px-4">
           <div class="flex space-x-4 whitespace-nowrap pb-8">
@@ -236,8 +236,8 @@
 
     <!-- foto -->
     <div class="container max-w-screen-lg mx-auto w-full">
-      <div class="text-center text-3xl font-bold mt-5 mb-5">
-        <h2 class="text-3xl font-bold mb-8">JAMAAH KAMI</h2>
+      <div class="text-center mt-5 mb-5">
+        <h2 class="text-4xl mb-8" style="text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5)">JAMAAH KAMI</h2>
       </div>
       <div class="card-foto overflow-x-auto pb-8">
         <div class="flex gap-3 w-fit">
@@ -368,7 +368,7 @@
     <!-- testimoni -->
     <div class="container max-w-screen-lg mx-auto w-full">
       <div class="text-center text-lg mt-10 mb-3">
-        <h2 class="text-3xl font-bold mb-8">TESTIMONI JAMAAH</h2>
+        <h2 class="text-4xl mb-8" style="text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5)">TESTIMONI JAMAAH</h2>
       </div>
       <div class="card-tetimoni overflow-x-auto pb-8">
         <div class="flex gap-3 w-fit">
@@ -431,7 +431,7 @@
         <div class="bg-sky-800 p-5 rounded-lg">
           <div class="text-center text-white">
             <div class="font-semibold">Tetap Up To Date</div>
-            <div class="font-thin">Dapatkan penawaran umroh, tips umroh dan update lainnya melalui email.</div>
+            <div class="font-normal">Dapatkan penawaran umroh, tips umroh dan update lainnya melalui email.</div>
           </div>
 
           <div class="flex m-5 justify-center">
