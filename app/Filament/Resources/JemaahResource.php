@@ -338,7 +338,7 @@ class JemaahResource extends Resource
                             return [
                                 '5000000'               => 'Rp5.000.000',
                                 '10000000'              => 'Rp10.000.000',
-                                $get('harga_paket')     => 'Rp' . $hargaPaket->harga . ' (Lunas)',
+                                $hargaPaket?->harga ?? 0     => 'Rp' . $hargaPaket?->harga ?? 0 . ' (Lunas)',
                             ];
                         }
                     )

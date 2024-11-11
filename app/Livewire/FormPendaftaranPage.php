@@ -44,9 +44,10 @@ class FormPendaftaranPage extends Component implements Forms\Contracts\HasForms
                 Forms\Components\Wizard::make([
                     Forms\Components\Wizard\Step::make('Paket')
                         ->schema([
-                            Forms\Components\Hidden::make('paket_id'),
+                            Forms\Components\Hidden::make('paket_id')
+                                ->required(),
                             Forms\Components\Livewire::make(PilihPaket::class)
-                                ->live(onBlur: true)
+                                ->live()
                         ])
                         ->icon('heroicon-o-cube')
                         ->completedIcon('heroicon-o-document-check'),
