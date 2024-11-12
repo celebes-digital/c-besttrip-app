@@ -26,6 +26,11 @@ class CreateJemaah extends CreateRecord
         return false;
     }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->resource::getUrl('index');
+    }
+
     protected function getSubmitFormAction(): Action
     {
         return Action::make('create')
