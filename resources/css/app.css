@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.fi-fo-wizard-step {
+    @apply px-4 md:px-6;
+}
+
+.fi-fo-wizard-header {
+    @apply grid-flow-col overflow-x-auto;
+}

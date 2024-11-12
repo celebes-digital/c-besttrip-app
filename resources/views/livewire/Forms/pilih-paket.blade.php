@@ -3,13 +3,13 @@
 
     @if ($dataPaket !== null)
 
-        <div class="flex gap-4 my-4 overflow-x-scroll py-8">
-            <div class="flex flex-nowrap gap-4">
+        <div class="flex gap-4 mt-4 overflow-x-scroll py-8">
+            <div class="flex flex-nowrap gap-4 px-2 wire:transition">
 
                 @foreach ($dataPaket as $item)
 
                     <div
-                        class="w-64 md:w-[22rem] space-y-2 border p-4 rounded-2xl 
+                        class="w-64 md:w-[22rem] space-y-2 border p-3 md:p-4 rounded-xl md:rounded-2xl 
                         {{ 
                         $paketId === $item['id'] 
                                 ? 'border-rose-400 bg-rose-100/25' 
@@ -26,38 +26,29 @@
 
                         </div>
                         <div class="space-y-2">
-                            <h1 class="font-semibold text-lg">
-                                Paket {{ $item['nama_paket'] }}
+                            <h1 class="font-semibold md:text-lg text-md line-clamp-1">
+                                {{ $item['nama_paket'] }}
                             </h1>
                             <p
-                                class="bg-rose-400/25 w-fit h-fit border border-rose-50 rounded-md px-2 py-1 font-medium text-rose-700">
+                                class="bg-rose-400/25 w-fit h-fit md:text-lg text-md border border-rose-50 rounded-md px-2 py-1 font-medium text-rose-700">
                                 {{ $item['tgl_paket'] }}
                             </p>
-                            <p class="line-clamp-2 text-base font-light">
-                                Lorem, ipsum dolor sit amet consectetur
-                                adipisicing
-                                elit. Sint vel aliquid, culpa nam provident qui eveniet cumque rerum? Quam sint totam
-                                eaque
-                                explicabo recusandae praesentium pariatur dolores animi commodi sunt.
+                            <p class="line-clamp-2 text-base font-light md:text-lg text-md">
+                                {{ $item['deskripsi'] }}
                             </p>
                             <div class="py-2">
-                                <span class="text-rose-500 font-semibold text-xl !py-12">
+                                <span class="text-rose-500 font-semibold md:text-xl !py-12 text-lg">
                                     {{ h_format_currency($item['harga']) }}
                                 </span>
                             </div>
                         </div>
                         <div class="flex gap-2 w-full">
-                            {{-- <button 
-                                wire:click.prevent=""
-                                class="border border-rose-500 transition-all ease-in-out rounded-lg text-rose-600 w-full p-2">
-                                Detail Paket
-                            </button> --}}
                             <div class="w-1/2">
                                 {{ ($this->viewAction)(['paket' => $item['id']]) }}
                             </div>
                             <button 
                                 wire:click.prevent="updateDataPaketId({{ $item['id'] }})"
-                                class="bg-rose-600 hover:bg-rose-500 transition-all ease-in-out rounded-lg text-white w-1/2 p-2">
+                                class="bg-rose-600 hover:bg-rose-500 transition-all ease-in-out rounded-lg text-white w-1/2 md:p-2  md:text-lg text-base font-medium wire:transition">
                                 {{ $paketId === $item['id'] ? 'Terpilih' : 'Pilih Paket' }}
                             </button>
                         </div>
