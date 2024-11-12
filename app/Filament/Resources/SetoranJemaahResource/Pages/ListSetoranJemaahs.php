@@ -21,6 +21,11 @@ class ListSetoranJemaahs extends ListRecords
         ];
     }
 
+    public function getDefaultActiveTab(): string | int | null
+    {
+        return 'pending';
+    }
+
     public function getTabs(): array
     {
         return [
