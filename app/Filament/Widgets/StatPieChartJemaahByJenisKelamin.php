@@ -7,7 +7,8 @@ use Filament\Widgets\ChartWidget;
 
 class StatPieChartJemaahByJenisKelamin extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = '';
+    protected static ?string $maxHeight = '300px';
 
     protected function getData(): array
     {
