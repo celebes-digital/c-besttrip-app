@@ -77,7 +77,7 @@ class JemaahsRelationManager extends RelationManager
                             $setoran = $record->setorans;
 
                             return view(
-                                'components.detail-setoran',
+                                'filament.table-detail-setoran',
                                 ['data' => $setoran]
                             );
                         }
