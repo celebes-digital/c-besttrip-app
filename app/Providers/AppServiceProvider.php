@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 use Filament\Support\Facades\FilamentView;
+use Illuminate\Support\Facades\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +35,11 @@ class AppServiceProvider extends ServiceProvider
             'primary' => Color::Rose,
             'success' => Color::Green,
             'warning' => Color::Amber,
+        ]);
+
+        // Register Chart.js plugins
+        FilamentAsset::register([
+            Js::make('chart-js-plugins', Vite::asset('resources/js/filament-chart-js-plugins.js'))->module(),
         ]);
     }
 }

@@ -14,5 +14,11 @@
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
+  },
+  "resources/js/filament-chartjs-plugin.js": {
+    "file": "assets/filament-chartjs-plugin-BijL1gEw.js",
+    "name": "filament-chartjs-plugin",
+    "src": "resources/js/filament-chartjs-plugin.js",
+    "isEntry": true
   }
 }
