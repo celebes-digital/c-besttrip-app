@@ -67,7 +67,6 @@ class JemaahResource extends Resource
                     ->placeholder('No email')
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('kelamin')
-                    ->label('Jenis Kelamin')
                     ->formatStateUsing(function ($state) {
                         return match ($state) {
                             'l' => 'Laki-laki',
@@ -78,6 +77,8 @@ class JemaahResource extends Resource
                 Tables\Columns\TextColumn::make('tanggal_lahir')
                     ->label('Tanggal Lahir')
                     ->formatStateUsing(fn($state) => $state->format('d F Y')),
+                Tables\Columns\TextColumn::make('age')
+                    ->label('Umur'),
                 Tables\Columns\TextColumn::make('alamat')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),

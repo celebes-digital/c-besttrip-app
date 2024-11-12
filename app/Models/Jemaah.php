@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -41,6 +42,13 @@ class Jemaah extends Model
         'tanggal_lahir' => 'date',
         'berlaku_paspor' => 'date',
     ];
+
+    public function age(): Attribute
+    {
+        return Attribute::make(
+            fn () => $this->tanggal_lahir->age,
+        );
+    }
 
     public function pakets(): BelongsToMany
     {
