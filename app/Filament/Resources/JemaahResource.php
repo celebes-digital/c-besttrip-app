@@ -205,10 +205,17 @@ class JemaahResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('no_hp')
                     ->label('Nomor Telepon')
+                    ->numeric()
                     ->helperText('Gunakan nomor yang aktif whatsapp')
                     ->prefix('+62')
-                    ->mask('9999 9999 9999')
+                    ->mask('999 9999 99999')
                     ->stripCharacters(' ')
+                    ->afterStateUpdated(
+                        fn ($component, $state) => $component->state(
+                            ltrim($state, '0')
+                        )
+                    )
+                    ->live(onBlur: true)
                     ->minLength(10)
                     ->required()
                     ->maxLength(13),
