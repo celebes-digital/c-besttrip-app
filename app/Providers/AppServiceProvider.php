@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Register Chart.js plugins
         FilamentAsset::register([
-            Js::make('chart-js-plugins', Vite::asset('resources/js/filament-chart-js-plugins.js'))->module(),
+            Js::make('chart-js-plugins', Vite::asset('resources/js/filament-chartjs-plugin.js'))->module(),
         ]);
     }
 }
