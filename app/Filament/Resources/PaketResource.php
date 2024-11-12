@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Support\RawJs;
 
 use Illuminate\Database\Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 class PaketResource extends Resource
 {
@@ -169,6 +170,9 @@ class PaketResource extends Resource
                     ->label('Aktif'),
             ])
             ->defaultSort('updated_at', 'desc')
+            ->recordUrl(
+                fn(Model $record): string => PaketResource::getUrl('view', ['record' => $record]),
+            )
             ->filters([
                 Tables\Filters\TrashedFilter::make()
                     ->native(false),
@@ -206,6 +210,7 @@ class PaketResource extends Resource
         return [
             'index'     => Pages\ListPakets::route('/'),
             'create'    => Pages\CreatePaket::route('/create'),
+            'view'      => Pages\ViewPaket::route('/{record}'),
             'edit'      => Pages\EditPaket::route('/{record}/edit'),
         ];
     }
