@@ -36,10 +36,5 @@ class AppServiceProvider extends ServiceProvider
             'success' => Color::Green,
             'warning' => Color::Amber,
         ]);
-
-        // Register Chart.js plugins
-        FilamentAsset::register([
-            Js::make('chart-js-plugins', Vite::asset('resources/js/filament-chartjs-plugin.js'))->module(),
-        ]);
     }
 }
