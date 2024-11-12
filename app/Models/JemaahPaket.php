@@ -36,6 +36,18 @@ class JemaahPaket extends Pivot
         static::creating(function ($jemaahPaket) {
             $jemaahPaket->kode_paket = self::generateKodePaket();
         });
+
+        static::created(function ($jemaahPaket) {
+            $jemaahPaket->paket->increment('terisi');
+        });
+
+        static::deleted(function ($jemaahPaket) {
+            $jemaahPaket->paket->decrement('terisi');
+        });
+
+        static::restored(function ($jemaahPaket) {
+            $jemaahPaket->paket->increment('terisi');
+        });
     }
 
     public static function generateKodePaket(): string
