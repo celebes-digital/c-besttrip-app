@@ -4,7 +4,6 @@ namespace App\Filament\Resources\PaketResource\RelationManagers;
 
 use App\Models\Jemaah;
 use App\Models\JemaahPaket;
-
 use Filament\Forms\Components\Select;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Support\Enums\IconPosition;
@@ -74,11 +73,13 @@ class JemaahsRelationManager extends RelationManager
                     ->action(fn (Jemaah $record) => $record->advance())
                     ->modalContent(
                         function (Jemaah $record) {
-                            $setoran = $record->setorans;
-
+                            $jemaahPaket = JemaahPaket::where('jemaah_id', $record->id)
+                                            ->where('paket_id', $this->getOwnerRecord()->id)
+                                            ->first();
+                            
                             return view(
                                 'filament.table-detail-setoran',
-                                ['data' => $setoran]
+                                ['data' => $jemaahPaket]
                             );
                         }
                     ),

@@ -23,7 +23,7 @@
                     </p>
                 </div>
             </div>
-            {{-- <div class="flex items-center border-t border-t-rose-400">
+            <div class="flex items-center border-t border-t-rose-400">
                 <div class="w-1/4">
                     <p class="text-base font-medium">Sisa</p>
                 </div>
@@ -32,6 +32,6 @@
                         {{ h_format_currency($data->paket->harga - $data->sum('nominal')) }}
                     </p>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
