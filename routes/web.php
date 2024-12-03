@@ -12,7 +12,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/daftar/v2', FormPendaftaranPage::class)->name('daftar');
+Route::get('/daftar/v2', FormPendaftaranPage::class)->name('daftar-v2');
 
 Route::get('/daftar', SimpleFormPendaftaranPage::class)->name('daftar');
 
