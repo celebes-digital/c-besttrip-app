@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Support\Str;
+
 class Paket extends Model
 {
     use SoftDeletes;
@@ -22,11 +24,29 @@ class Paket extends Model
         'kuota',
         'terisi',
         'is_active',
+        'kode_paket',
+        'no_wa_admin',
     ];
     
     protected $casts = [
         'tgl_paket' => 'date',
     ];
+
+    public static function booted()
+    {
+        static::creating(function ($model) {
+            $model->kode_paket = self::generateKodePaket();
+        });
+    }
+
+    public static function generateKodePaket(): string
+    {
+        do {
+            $kodePaket = Str::random(8);
+        } while (JemaahPaket::where('kode_paket', $kodePaket)->exists());
+
+        return $kodePaket;
+    }
 
     public function getTglPaketAttribute($value)
     {

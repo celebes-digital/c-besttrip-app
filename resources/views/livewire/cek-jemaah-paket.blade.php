@@ -135,7 +135,7 @@
             Jika ada Pertanyaan silahkan hubungi admin
         </h1>
         <a 
-            href="https://wa.me/0852481883" 
+            href="https://wa.me/{{ $data->paket->no_wa_admin }}" 
             class="bg-rose-400 hover:bg-red-300 rounded-lg py-2 px-4 text-white font-semibold flex justify-center gap-2">
             <span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

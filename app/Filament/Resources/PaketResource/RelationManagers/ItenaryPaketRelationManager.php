@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PaketResource\RelationManagers;
 
+use App\Filament\Resources\PaketResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -21,15 +22,7 @@ class ItenaryPaketRelationManager extends RelationManager
             ->schema([
                 // Buat dinamis dengan tambah ke setting untuk jumlah hari
                 Forms\Components\Select::make('hari_ke')
-                    ->options([
-                        1 => 'Hari 1',
-                        2 => 'Hari 2',
-                        3 => 'Hari 3',
-                        4 => 'Hari 4',
-                        5 => 'Hari 5',
-                        6 => 'Hari 6',
-                        7 => 'Hari 7',
-                    ])
+                    ->options(PaketResource::getHari())
                     ->native(false)
                     ->required(),
                 Forms\Components\TextInput::make('kegiatan')
@@ -49,15 +42,7 @@ class ItenaryPaketRelationManager extends RelationManager
                     ->extraAttributes([
                         'class' => 'min-w-[150px]',
                     ])
-                    ->options([
-                        1 => 'Hari 1',
-                        2 => 'Hari 2',
-                        3 => 'Hari 3',
-                        4 => 'Hari 4',
-                        5 => 'Hari 5',
-                        6 => 'Hari 6',
-                        7 => 'Hari 7',
-                    ]),
+                    ->options(PaketResource::getHari()),
                 Tables\Columns\TextColumn::make('kegiatan')
                     ->grow(),
             ])

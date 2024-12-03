@@ -87,11 +87,16 @@ class PaketResource extends Resource
                                 ->prefixIcon('heroicon-o-calendar')
                                 ->prefixIconColor('primary')
                                 ->required(),
+                            Forms\Components\TextInput::make('no_wa_admin')
+                                ->label('No. WA Admin')
+                                ->prefixIcon('heroicon-o-phone')
+                                ->prefixIconColor('primary')
+                                ->maxLength(20),
                         ])
                         ->columnSpanFull()
                         ->columns([
-                            'md' => 3,
-                            'lg' => 3,
+                            'md' => 2,
+                            'lg' => 4,
                         ]),
                     ]),
                     Forms\Components\Tabs\Tab::make('Itenary Paket')
@@ -104,15 +109,7 @@ class PaketResource extends Resource
                         ->addActionLabel('Tambah Itenary')
                         ->schema([
                             Forms\Components\Select::make('hari_ke')
-                                ->options([
-                                    1 => 'Hari 1',
-                                    2 => 'Hari 2',
-                                    3 => 'Hari 3',
-                                    4 => 'Hari 4',
-                                    5 => 'Hari 5',
-                                    6 => 'Hari 6',
-                                    7 => 'Hari 7',
-                                ])
+                                ->options(static::getHari())
                                 ->native(false)
                                 ->columnSpan(2)
                                 ->live()
@@ -221,5 +218,34 @@ class PaketResource extends Resource
             ->withoutGlobalScopes([
                 Eloquent\SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getHari(): array
+    {
+        return [
+            1 => 'Hari 1',
+            2 => 'Hari 2',
+            3 => 'Hari 3',
+            4 => 'Hari 4',
+            5 => 'Hari 5',
+            6 => 'Hari 6',
+            7 => 'Hari 7',
+            8 => 'Hari 8',
+            9 => 'Hari 9',
+            10 => 'Hari 10',
+            11 => 'Hari 11',
+            12 => 'Hari 12',
+            13 => 'Hari 13',
+            14 => 'Hari 14',
+            15 => 'Hari 15',
+            16 => 'Hari 16',
+            17 => 'Hari 17',
+            18 => 'Hari 18',
+            19 => 'Hari 19',
+            20 => 'Hari 20',
+            21 => 'Hari 21',
+            22 => 'Hari 22',
+            23 => 'Hari 23',
+        ];
     }
 }

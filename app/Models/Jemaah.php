@@ -36,6 +36,19 @@ class Jemaah extends Model
         'rt',
         'rw',
         'status_nikah',
+        'pendidikan_terakhir',
+        'nama_ayah',
+        'nama_ibu',
+        'kota_domisili',
+        'pekerjaan',
+        'province_id',
+        'city_id',
+        'district_id',
+        'subdistrict_id',
+        'tempat_lahir_paspor',
+        'tanggal_lahir_paspor',
+        'tempat_terbit_paspor',
+        'tanggal_terbit_paspor',
     ];
 
     protected $casts = [

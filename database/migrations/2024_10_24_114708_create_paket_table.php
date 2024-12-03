@@ -23,6 +23,8 @@ return new class extends Migration
             $table->unsignedSmallInteger('kuota');
             $table->unsignedSmallInteger('terisi')->default(0);
             $table->boolean('is_active')->default(true);
+            $table->char('kode_paket', 10)->unique();
+            $table->char('no_wa_admin', 20)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

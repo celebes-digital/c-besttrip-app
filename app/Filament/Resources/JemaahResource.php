@@ -11,7 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Forms;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Tabs;
-
+use Filament\Forms\Form;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -19,8 +19,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Teguh02\IndonesiaTerritoryForms\Traits;
+
 class JemaahResource extends Resource
 {
+    use Traits\HasProvinceForm,
+        Traits\HasCityForm,
+        Traits\HasDistrictForm,
+        Traits\HasSubDistrictForm;
+
     protected static ?string $model             = Jemaah::class;
     protected static ?string $modelLabel        = 'Manajemen Jemaah';
     protected static ?string $navigationIcon    = 'heroicon-o-identification';
@@ -167,19 +174,9 @@ class JemaahResource extends Resource
                     ->mask('9999 9999 9999 9999')
                     ->stripCharacters(' ')
                     ->length(16)
+                    ->unique('jemaah', 'nik', ignoreRecord: true)
                     ->required()
                     ->maxLength(20),
-                Forms\Components\TextInput::make('tempat_lahir')
-                    ->required()
-                    ->maxLength(100),
-                Forms\Components\DatePicker::make('tanggal_lahir')
-                    ->prefixIcon('heroicon-s-calendar')
-                    ->displayFormat('d F Y')
-                    ->placeholder('Pilih tanggal')
-                    ->maxDate(now()->subMonths(6))
-                    ->closeOnDateSelection()
-                    ->native(false)
-                    ->required(),
                 Forms\Components\Select::make('kelamin')
                     ->label('Jenis Kelamin')
                     ->options([
@@ -196,6 +193,51 @@ class JemaahResource extends Resource
                     ])
                     ->native(false)
                     ->required(),
+                Forms\Components\TextInput::make('tempat_lahir')
+                    ->required()
+                    ->maxLength(100),
+                Forms\Components\DatePicker::make('tanggal_lahir')
+                    ->label('Tanggal Lahir')
+                    ->prefixIcon('heroicon-s-calendar')
+                    ->displayFormat('d F Y')
+                    ->placeholder('Pilih tanggal')
+                    ->maxDate(now()->subMonths(6))
+                    ->closeOnDateSelection()
+                    ->native(false)
+                    ->required(),
+                Forms\Components\TextInput::make('pekerjaan')
+                    ->label('Pekerjaan')
+                    ->required(),
+                Forms\Components\Select::make('pendidikan_terakhir')
+                    ->label('Pendidikan Terakhir')
+                    ->required()
+                    ->native(false)
+                    ->options([
+                        'sd'    => 'SD',
+                        'smp'   => 'SMP',
+                        'mts'   => 'MTs',
+                        'sma'   => 'SMA',
+                        'ma'    => 'MA',
+                        'smk'   => 'SMK',
+                        'd3'    => 'D3',
+                        's1'    => 'S1',
+                        's2'    => 'S2',
+                        's3'    => 'S3',
+                        'lainnya' => 'Lainnya',
+                    ]),
+                Forms\Components\TextInput::make('kota_domisili')
+                    ->label('Kota Domisili')
+                    ->required(),
+                Forms\Components\TextInput::make('nama_ayah')
+                    ->label('Nama Ayah')
+                    ->required(),
+                Forms\Components\TextInput::make('nama_ibu')
+                    ->label('Nama Ibu')
+                    ->required(),
+            ])
+            ->columns([
+                'md' => 2,
+                'lg' => 4,
             ]);
     }
 
@@ -204,21 +246,22 @@ class JemaahResource extends Resource
         return Forms\Components\Fieldset::make('Kontak')
             ->schema([
                 Forms\Components\TextInput::make('no_hp')
-                    ->label('Nomor Telepon')
+                    ->label('Nomor Telepon (Aktif Whatsapp)')
                     ->numeric()
                     ->helperText('Gunakan nomor yang aktif whatsapp')
-                    ->prefix('+62')
-                    ->mask('999 9999 99999')
+                    ->prefix('ID')
+                    ->helperText('Contoh: 0812 3456 7890')
+                    ->mask('9999 9999 9999')
                     ->stripCharacters(' ')
-                    ->afterStateUpdated(
-                        fn ($component, $state) => $component->state(
-                            ltrim($state, '0')
-                        )
-                    )
-                    ->live(onBlur: true)
-                    ->minLength(10)
+                    // ->afterStateUpdated(
+                    //     fn ($component, $state) => $component->state(
+                    //         ltrim($state, '0')
+                    //     )
+                    // )
+                    // ->live(onBlur: true)
+                    ->minLength(8)
                     ->required()
-                    ->maxLength(13),
+                    ->maxLength(15),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->helperText('Gunakan email yang aktif jika ada')
@@ -232,6 +275,25 @@ class JemaahResource extends Resource
     {
         return Forms\Components\Fieldset::make('Alamat')
             ->schema([
+                // Forms\Components\TextInput::make('provinsi')
+                //     ->required()
+                //     ->maxLength(50),
+                // Forms\Components\TextInput::make('kabupaten')
+                //     ->required()
+                //     ->maxLength(50),
+                // Forms\Components\TextInput::make('kecamatan')
+                //     ->required()
+                //     ->maxLength(50),
+                // Forms\Components\TextInput::make('kelurahan')
+                //     ->required()
+                //     ->maxLength(50),
+
+                static::province_form()
+                ->required(),
+                config('indonesia-territory-forms.forms_visibility.city') ? static::city_form()->required() : null,
+                config('indonesia-territory-forms.forms_visibility.district') ? static::district_form()->required() : null,
+                config('indonesia-territory-forms.forms_visibility.sub_district') ? static::sub_district_form()->required() : null,
+
                 Forms\Components\TextInput::make('alamat')
                     ->label('Alamat Lengkap')
                     ->helperText('Alamat lengkap sesuai KTP')
@@ -263,46 +325,55 @@ class JemaahResource extends Resource
                     'sm' => 2,
                     'md' => 2,
                 ]),
-                Forms\Components\TextInput::make('provinsi')
-                    ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('kabupaten')
-                    ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('kecamatan')
-                    ->required()
-                    ->maxLength(50),
-                Forms\Components\TextInput::make('kelurahan')
-                    ->required()
-                    ->maxLength(50),
-            ])
+                ])
             ->columns([
                 'md' => 2,
                 'lg' => 4,
             ]);
     }
 
-    public static function getPasporFormField(): Forms\Components\Fieldset
+    public static function getPasporFormField(): Forms\Components\Section
     {
-        return Forms\Components\Fieldset::make('Paspor')
+        return Forms\Components\Section::make('Paspor')
+            ->description('Data Paspor tidak wajib diisi jika tidak memiliki paspor yang masih berlaku')
+            ->collapsible()
             ->schema([
+                Forms\Components\TextInput::make('no_paspor')
+                    ->label('Nomor Paspor')
+                    ->maxLength(20),
                 Forms\Components\TextInput::make('nama_paspor')
+                    ->label('Nama (Sesuai Paspor)')
                     ->maxLength(100)
                     ->live(onBlur: true)
                     ->columnSpan([
-                        'sm' => 2
+                        'lg' => 2,
                     ]),
-                Forms\Components\TextInput::make('no_paspor')
-                    ->label('Nomor Paspor')
-                    ->required(fn(Get $get) => !empty($get('nama_paspor')))
-                    ->maxLength(20),
+                Forms\Components\TextInput::make('tempat_terbit_paspor')
+                    ->label('Tempat Terbit Paspor')
+                    ->helperText('Instansi yang menerbitkan paspor')
+                    ->maxLength(100),
+                Forms\Components\DatePicker::make('tanggal_terbit_paspor')
+                    ->native(false)
+                    ->closeOnDateSelection()
+                    ->placeholder('Pilih tanggal')
+                    ->displayFormat('d F Y'),
                 Forms\Components\DatePicker::make('berlaku_paspor')
                     ->native(false)
                     ->closeOnDateSelection()
                     ->minDate(now())
                     ->placeholder('Pilih tanggal')
-                    ->required(fn(Get $get) => !empty($get('nama_paspor')))
                     ->displayFormat('d F Y'),
+                Forms\Components\TextInput::make('tempat_lahir_paspor')
+                    ->label('Tempat Lahir (Sesuai Paspor)')
+                    ->maxLength(100),
+                Forms\Components\DatePicker::make('tanggal_lahir_paspor')
+                    ->label('Tanggal Lahir (Sesuai Paspor)')
+                    ->native(false)
+                    ->closeOnDateSelection()
+                    ->maxDate(now())
+                    ->placeholder('Pilih tanggal')
+                    ->displayFormat('d F Y'),
+                
             ])
             ->columns([
                 'sm' => 2,

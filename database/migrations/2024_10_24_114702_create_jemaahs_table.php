@@ -22,19 +22,33 @@ return new class extends Migration
             $table->char('no_hp', 20);
             $table->string('email', 100)->nullable();
             $table->char('foto_ktp', 100);
-            
+            $table->string('kota_domisili', 100);
+            $table->string('pekerjaan', 100);
+
             $table->string('nama_paspor', 100)->nullable();
             $table->char('no_paspor', 20)->nullable();
             $table->char('foto_paspor', 100)->nullable();
+            $table->string('tempat_lahir_paspor', 100)->nullable();
+            $table->date('tanggal_lahir_paspor')->nullable();
+            $table->string('tempat_terbit_paspor', 100)->nullable();
+            $table->date('tanggal_terbit_paspor')->nullable();
             $table->date('berlaku_paspor')->nullable();
-            
+
             $table->string('alamat', 100);
-            $table->string('kelurahan', 50);
-            $table->string('kecamatan', 50);
-            $table->string('kabupaten', 50);
-            $table->string('provinsi', 50);
+            // $table->string('kelurahan', 50);
+            // $table->string('kecamatan', 50);
+            // $table->string('kabupaten', 50);
+            // $table->string('provinsi', 50);
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('district_id')->nullable();
+            $table->unsignedBigInteger('subdistrict_id')->nullable();
             $table->char('rt', 3);
             $table->char('rw', 3);
+
+            $table->string('pendidikan_terakhir', 50);
+            $table->string('nama_ayah', 100);
+            $table->string('nama_ibu', 100);
 
             $table->tinyInteger('status_nikah');
 
