@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ $title ?? 'C-Besttrip - Celebes Group' }}</title>
-        <meta name="description" content="{{ $description ?? 'C-Besttrip - Celebes Group' }}">
+        <meta name="description" content="{{ $metaDescription ?? 'C-Besttrip is a premier travel agency specializing in Umrah services. As part of the Celebes Group, we are dedicated to providing exceptional travel experiences for pilgrims and travelers alike. Our comprehensive services include travel planning, accommodation arrangements, and guided tours to ensure a seamless and spiritually fulfilling journey. Trust C-Besttrip for all your travel needs, and embark on a memorable Umrah pilgrimage with confidence and peace of mind.'}}">
 
         {{-- Favicon --}}
         <link rel="icon" href="{{ asset('logo.png') }}" type="image/png">

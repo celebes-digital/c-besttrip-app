@@ -14,7 +14,9 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Notifications\Notification;
+use Livewire\Attributes\Title;
 
+#[Title('Besttrip - Pendaftaran Paket Umrah')]
 class SimpleFormPendaftaranPage 
 extends Component 
 implements Forms\Contracts\HasForms
